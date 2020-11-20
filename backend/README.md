@@ -1,0 +1,1 @@
+Essa pasta contém todos os arquivos utilizados no backend do projeto.
