@@ -1,7 +1,7 @@
 IDIR =../headers	# Diretório de include	
 
 CC=g++
-CFLAGS=-I$(IDIR) -lgtest -lpthread 
+CFLAGS=-I$(IDIR) -lgtest -lpthread -ljsoncpp
 
 ODIR :=../bin/obj	# Diretório de objetos
 LDIR :=../lib		# Diretório de libs
