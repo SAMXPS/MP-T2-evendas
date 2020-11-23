@@ -9,11 +9,12 @@ $obj->session = $_SESSION;
 $json = addslashes(json_encode($obj));
 
 $saida = shell_exec("echo $json  | ../backend/bin/test");
-/*
-$saida_json = json_decode();
-if ($saida->status == "OK") {
-    $_SESSION = $saida->session;
-    echo json_encode($saida->data);
-}*/
 
-echo "<p>$saida</p>";
+$saida_json = json_decode($saida);
+
+if ($saida_json->status == "OK") {
+    $_SESSION = $saida_json->session;
+    echo json_encode($saida_json->data);
+} else {
+    echo "Saida inválida: $saida";
+}

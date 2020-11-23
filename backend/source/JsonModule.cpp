@@ -1,7 +1,5 @@
-#include <iostream>
-#include <string>
-#include <jsoncpp/json/json.h>
 #include "../headers/JsonModule.h"
+#include <iostream>
 
 using namespace JsonModule;
 
@@ -11,13 +9,13 @@ std::string JsonModule::verifica_senha(Json::Value usuario, Json::Value senha) {
     }
 }
 
-Json::Value JsonModule::Get() {
+Json::Value JsonModule::Get(const std::string&input) {
     Json::Value request;
     std::string chave;
     Json::Value response;
     Json::Reader reader;
 
-    bool error = reader.parse(std::cin, request); // Leitura do pedido em json, na entrada padrão.
+    bool error = reader.parse(input, request); // Leitura do pedido em json, na entrada padrão.
     if (!error) {
         std::cout << "Error: " << reader.getFormattedErrorMessages();
         response["status"] = "FALSE";
@@ -30,6 +28,9 @@ Json::Value JsonModule::Get() {
         chave = verifica_senha(request["data"]["usuario"], request["data"]["senha"]);
         response["status"] = "OK";
 
+    } else if(action.compare("cadastrarCliente") == 0) {  // cadastra novo cliente conforme informações passadas.
+
+        response["status"] = "OK";
     } else if(action.compare("carregarProduto") == 0) {  // carrega um produto de um anunciante.
 
         response["status"] = "OK";
@@ -47,6 +48,5 @@ Json::Value JsonModule::Get() {
     response["session"] = request["session"];
     response["data"]["chave_padrao"] = chave;
 
-    std::cout << response;
     return response;
 }
