@@ -8,9 +8,12 @@ $obj->session = $_SESSION;
 
 $json = addslashes(json_encode($obj));
 
-$saida = json_decode(shell_exec("echo $json  | ../backend/bin/test"));
-
+$saida = shell_exec("echo $json  | ../backend/bin/test");
+/*
+$saida_json = json_decode();
 if ($saida->status == "OK") {
     $_SESSION = $saida->session;
     echo json_encode($saida->data);
-}
+}*/
+
+echo "<p>$saida</p>";

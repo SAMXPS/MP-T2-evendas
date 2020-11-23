@@ -1,7 +1,10 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main(){
-    printf("Hello world");
+    string test;
+    cin >> test;
+    cout << test;
     return 0;
 }

@@ -8,7 +8,7 @@ LDIR :=../lib		# Diretório de libs
 
 LIBS=-lm
 
-SRC_FILES := $(wildcard *.cpp)
+SRC_FILES := DatabaseModule.cpp #$(wildcard *.cpp)
 OBJ_FILES := $(patsubst ./%.cpp,$(ODIR)/%.o,$(SRC_FILES))
 
 $(ODIR)/%.o: %.cpp
