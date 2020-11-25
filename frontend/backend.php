@@ -3,7 +3,11 @@
 session_start();
 
 $obj = new \stdClass;
-$obj->data = $_GET;
+if (!empty($_GET))
+    $obj->data = $_GET;
+else if (!empty($_POST))
+    $obj->data = $_POST;
+
 $obj->session = $_SESSION;
 
 $json = addslashes(json_encode($obj));

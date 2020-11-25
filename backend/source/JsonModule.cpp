@@ -3,14 +3,14 @@
 
 using namespace JsonModule;
 
-std::string JsonModule::verifyUserPassword(Json::Value usuario, Json::Value senha) {
-    if(usuario.compare("samuel") == 0 && senha.compare("12345") == 0) {
+std::string JsonModule::verifyLogin(Json::Value usuario, Json::Value senha) {
+    if(usuario.compare("teste@teste.com") == 0 && senha.compare("teste") == 0) {
         return "VALID_PASSWORD";
     }
     return "INVALID_PASSWORD";
 }
 
-std::string JsonModule::registerUser(Json::Value usuario, Json::Value senha, Json::Value email) {
+std::string JsonModule::registerUser(Json::Value nome, Json::Value senha, Json::Value email) {
     return "OK";
 }
 
@@ -32,11 +32,11 @@ Json::Value JsonModule::BackendInterface(const std::string&input) {
     // processa a ação da requisição
     std::string action = request["data"].get("action","vazio").asString();
     
-    if (action.compare("verifyUserPassword") == 0) { 
+    if (action.compare("verifyLogin") == 0) { 
         // Verifica a senha do usuario.
-        response["data"] = verifyUserPassword(request["data"]["usuario"], request["data"]["senha"]);
+        response["data"] = verifyLogin(request["data"]["email"], request["data"]["password"]);
     } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
-        response["data"] = registerUser(request["data"]["usuario"], request["data"]["senha"], request["data"]["email"]);
+        response["data"] = registerUser(request["data"]["name"], request["data"]["password"], request["data"]["email"]);
     } else if(action.compare("carregarProduto") == 0) {  
         // carrega um produto de um anunciante.
 
