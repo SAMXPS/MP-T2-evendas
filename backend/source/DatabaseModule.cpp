@@ -10,12 +10,12 @@
 using namespace std;
 
 bool conectarBanco(){
-    static char *opt_host_name = "localhost"; //Nome do Servidor (default - localhost)
-    static char *opt_user_name = "root"; //Nome do Usuário
-    static char *opt_password = "123456"; //Senha
+    static char *opt_host_name = "190.115.198.19"; //Nome do Servidor (default - localhost)
+    static char *opt_user_name = "evendas"; //Nome do Usuário
+    static char *opt_password = "WgAC95xFZHcBdJPH"; //Senha
     static unsigned int opt_port_num = 3306; //Numero da Porta 
     static char *opt_socket_name = NULL; //Numero do socket
-    static char *opt_db_name = "bando"; //Nome do Banco de dados
+    static char *opt_db_name = "evendas"; //Nome do Banco de dados
     static unsigned int opt_flags = 0; //Status da conexao
     MYSQL *conn; //Ponteiro para conexão
     MYSQL_RES *res; //Ponteiro dos Resultados

@@ -9,6 +9,11 @@ std::string JsonModule::verifyUserPassword(Json::Value usuario, Json::Value senh
     }
 }
 
+std::string JsonModule::registerUser(Json::Value usuario, Json::Value senha, Json::Value email) {
+    
+    return "OK";
+}
+
 Json::Value JsonModule::BackendInterface(const std::string&input) {
     Json::Value request;
     std::string chave;
@@ -28,9 +33,9 @@ Json::Value JsonModule::BackendInterface(const std::string&input) {
         chave = verifyUserPassword(request["data"]["usuario"], request["data"]["senha"]);
         response["status"] = "OK";
 
-    } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.
-        chave = 
-        response["status"] = "OK";
+    } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
+        response["status"] = registerUser(request["data"]["usuario"], request["data"]["senha"], request["data"]["email"]);
+
     } else if(action.compare("carregarProduto") == 0) {  // carrega um produto de um anunciante.
 
         response["status"] = "OK";
