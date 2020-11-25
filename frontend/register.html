@@ -30,6 +30,7 @@
                     <input id="password" type="password" class="validate">
                     <label for="password">Senha</label>
                 </div>
+                <input id="action" type="hidden" value="registerUser">
             </div>
             <div class="row">
                 <button class="btn right">Cadastrar</button>
@@ -51,7 +52,7 @@
         $("#register-form").submit(function(event){
             event.preventDefault();
             data = parseFormData("#register-form");
-            $.get( "backend.php", {action:"registerUser", data: data}, function(data) {
+            $.get( "backend.php", {data}, function(data) {
                 console.log(data);
             })
         });
