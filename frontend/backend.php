@@ -8,13 +8,18 @@ $obj->session = $_SESSION;
 
 $json = addslashes(json_encode($obj));
 
-$saida = shell_exec("echo $json  | ../backend/bin/test");
+$saida = shell_exec("echo $json  | ../backend/bin/backend");
 
 $saida_json = json_decode($saida);
 
-if ($saida_json->status == "OK") {
-    $_SESSION = $saida_json->session;
-    echo json_encode($saida_json->data);
-} else {
+if ($json == null) {
     echo "Saida inválida: $saida";
-}
+    die();
+} 
+
+if (isset($saida_json->session))
+    $_SESSION = $saida_json->session;
+
+unset($saida_json->session);
+
+echo json_encode($saida_json);
