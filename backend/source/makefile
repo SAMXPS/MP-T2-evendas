@@ -1,15 +1,15 @@
 IDIR =../headers	# Diretório de include	
 
 CC=g++
-CFLAGS=-I$(IDIR) -ljsoncpp
+CFLAGS=-I$(IDIR) -ljsoncpp $(shell mysql_config --cflags)
 GTEST_FLAGS=-lgtest -lpthread
 
 ODIR :=../bin/obj	# Diretório de objetos
 LDIR :=../lib		# Diretório de libs
 
-LIBS=-lm
+LIBS=-lm $(shell mysql_config --libs)
 
-SRC_FILES := JsonModule.cpp Backend.cpp #$(wildcard *.cpp)
+SRC_FILES := JsonModule.cpp DatabaseModule.cpp Backend.cpp #$(wildcard *.cpp)
 OBJ_FILES := $(patsubst ./%.cpp,$(ODIR)/%.o,$(SRC_FILES))
 
 TEST_SRC_FILES := JsonModule.cpp Test.cpp
