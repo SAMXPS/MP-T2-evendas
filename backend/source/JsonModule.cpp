@@ -3,13 +3,13 @@
 
 using namespace JsonModule;
 
-std::string JsonModule::verifica_senha(Json::Value usuario, Json::Value senha) {
+std::string JsonModule::verifyUserPassword(Json::Value usuario, Json::Value senha) {
     if(usuario.compare("samuel") == 0 && senha.compare("12345") == 0) {
         return "123456789";
     }
 }
 
-Json::Value JsonModule::Get(const std::string&input) {
+Json::Value JsonModule::BackendInterface(const std::string&input) {
     Json::Value request;
     std::string chave;
     Json::Value response;
@@ -24,12 +24,12 @@ Json::Value JsonModule::Get(const std::string&input) {
     // processa a ação da requisição
     std::string action = request["data"].get("action","vazio").asString();
     
-    if(action.compare("verificarSenha") == 0) { // efetua verificção de senha
-        chave = verifica_senha(request["data"]["usuario"], request["data"]["senha"]);
+    if(action.compare("verifyUserPassword") == 0) { // Verifica a senha do usuario.
+        chave = verifyUserPassword(request["data"]["usuario"], request["data"]["senha"]);
         response["status"] = "OK";
 
-    } else if(action.compare("cadastrarCliente") == 0) {  // cadastra novo cliente conforme informações passadas.
-
+    } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.
+        chave = 
         response["status"] = "OK";
     } else if(action.compare("carregarProduto") == 0) {  // carrega um produto de um anunciante.
 

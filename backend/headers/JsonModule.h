@@ -17,8 +17,8 @@ namespace JsonModule{
      * @return std::string 
      */
 
-    std::string verifica_senha(Json::Value usuario, Json::Value senha);
-    Json::Value Get(const std::string&input);
+    std::string verifyUserPassword(Json::Value usuario, Json::Value senha);
+    Json::Value BackendInterface(const std::string&input);
 }
 #define _JSON_MODULE
 #endif // _JSON_MODULE
