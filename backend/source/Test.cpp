@@ -1,22 +1,23 @@
 #include <gtest/gtest.h> // inclui biblioteca de teste gtest.
 #include <JsonModule.h>
+#include <DatabaseModule.h>
+#include <UserManager.h>
 
 
 /**
- * @brief Constroi novo objeto de teste do gtest.
+ * @brief Constroi objeto teste de JsonModuleTest.
  * 
  * Teste a função verifyLogin do modulo JsonModule.
  * 
  */
 GTEST_TEST(JsonModuleTest, verifyLogin) {
-    Json::Value usuario = "teste@teste.com";
-    Json::Value senha = "teste";
-
-    GTEST_ASSERT_EQ("VALID_PASSWORD", JsonModule::verifyLogin(usuario, senha));
-    usuario = "wrongteste@teste.com";
-    senha = "wrongpassword";
-    GTEST_ASSERT_EQ("INVALID_PASSWORD", JsonModule::verifyLogin(usuario, senha));
-
+    Json::Value email = "teste@teste.com";
+    Json::Value senha = "12345";
+    GTEST_ASSERT_EQ("VALID_PASSWORD", UserManager::verifyLogin(email, senha));
+    senha = "11111";
+    GTEST_ASSERT_EQ("INVALID_PASSWORD", UserManager::verifyLogin(email, senha));
+    email = "wrongteste@teste.com";
+    GTEST_ASSERT_EQ("UNREGISTERED_USER", UserManager::verifyLogin(email, senha));
 }
 
 /**

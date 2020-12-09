@@ -1,20 +1,12 @@
 #include "../headers/JsonModule.h"
+#include "../headers/DatabaseModule.h"
+#include "../headers/UserManager.h"
 #include <iostream>
 
 using namespace JsonModule;
+using namespace UserManager;
 
-std::string JsonModule::verifyLogin(Json::Value usuario, Json::Value senha) {
-    if(usuario.compare("teste@teste.com") == 0 && senha.compare("teste") == 0) {
-        return "VALID_PASSWORD";
-    }
-    return "INVALID_PASSWORD";
-}
-
-std::string JsonModule::registerUser(Json::Value nome, Json::Value senha, Json::Value email) {
-    return "OK";
-}
-
-Json::Value JsonModule::BackendInterface(const std::string&input) {
+Json::Value JsonModule::BackendInterface(const std::string&input) {  
     Json::Value request;
     std::string chave;
     Json::Value response;
@@ -34,7 +26,7 @@ Json::Value JsonModule::BackendInterface(const std::string&input) {
     
     if (action.compare("verifyLogin") == 0) { 
         // Verifica a senha do usuario.
-        response["data"] = verifyLogin(request["data"]["email"], request["data"]["password"]);
+        response["data"] = verifyLogin(request["data"]["email"],request["data"]["password"]);
     } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
         response["data"] = registerUser(request["data"]["name"], request["data"]["password"], request["data"]["email"]);
     } else if(action.compare("carregarProduto") == 0) {  
