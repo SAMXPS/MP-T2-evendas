@@ -55,9 +55,49 @@ bool User::verifyPassword(const std::string&senhaDigitada) {
     return this->senha == senhaDigitada;
 }
 
-std::string UserManager::registerUser(Json::Value nome, Json::Value senha, Json::Value email) {
-    return "OK";
+std::string UserManager::registerUser(Json::Value nome, Json::Value senha, Json::Value email, Json::Value cpf, Json::Value phoneNum) {
+    try {
+        if (UserManager::verifyLogin(email, senha).compare("UNREGISTERED_USER")){
+            DatabaseResult* result;
+            result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `usuarios`(`ID`, `EMAIL`, `NOME`, `SENHA`) VALUES (0,'" + email.asString() + "','" + nome.asString() + "','" + phoneNum.asString() + "'");
+            auto element = result->front();
+            if (result->size()>0) {   
+                if (element["SENHA"].compare(senha.asString()) == 0 && element["EMAIL"].compare(email.asString()) == 0 && element["NOME"].compare(email.asString()) == 0 && element["EMAIL"].compare(phoneNum.asString()) == 0) {
+                    return "SUCESS";
+                }
+                else {
+                    return "ERROR";
+                }
+            }
+        }
+        else {
+            return "REGISTERED_USER";
+        }
+    } catch (DatabaseError&e) {
+        std::cout << e.what();
+    }
 }
+
+std::string UserManager::removeUser(Json::Value email, Json::Value senha) {
+    try {
+        if (UserManager::verifyLogin(email, senha).compare("VALID_PASSWORD")){
+            DatabaseResult* result;
+            result = DatabaseModule::getInstance()->executeQuery("DELETE FROM `usuarios` WHERE EMAIL = '" + email.asString() + "'");
+            auto element = result->front();
+            if (result->size() == 0) {   
+                return "SUCESS";
+            } else {
+                return "ERROR";
+            }
+        }
+        else {
+            return "UNREGISTERED_USER";
+        }
+    } catch (DatabaseError&e) {
+        std::cout << e.what();
+    } 
+}
+
 
 User* loadUser(const std::string&email) {
 

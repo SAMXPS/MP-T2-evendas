@@ -54,12 +54,23 @@ namespace UserManager {
      * 
      * Registra um usuario com algumas informações.
      * 
-     * @param usuario 
-     * @param senha 
+     * @param name 
+     * @param password 
      * @param email 
+     * @param cpf 
+     * @param phoneNum 
      * @return std::string 
      */
-    std::string registerUser(Json::Value usuario, Json::Value senha, Json::Value email);
+    std::string registerUser(Json::Value name, Json::Value password, Json::Value email, Json::Value cpf, Json::Value phoneNum);
+
+    /**
+     * @brief Remove usuario
+     * 
+     * @param email 
+     * @param senha 
+     * @return std::string 
+     */
+    std::string removeUser(Json::Value email, Json::Value senha);
 };
 
 #endif//_USER_MANAGER

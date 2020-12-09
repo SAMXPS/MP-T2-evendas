@@ -4,6 +4,15 @@
 #include <UserManager.h>
 
 
+GTEST_TEST(JsonModuleTest, registerUser) {
+    Json::Value nome = "nome_teste";
+    Json::Value email = "teste@teste.com";
+    Json::Value senha = "12345";
+    Json::Value cpf = "12345678910";
+    Json::Value phoneNum = "61988887777";
+    GTEST_ASSERT_EQ("SUCESS", UserManager::registerUser(nome, email, senha, cpf, phoneNum));
+}
+
 /**
  * @brief Constroi objeto teste de JsonModuleTest.
  * 
@@ -18,6 +27,12 @@ GTEST_TEST(JsonModuleTest, verifyLogin) {
     GTEST_ASSERT_EQ("INVALID_PASSWORD", UserManager::verifyLogin(email, senha));
     email = "wrongteste@teste.com";
     GTEST_ASSERT_EQ("UNREGISTERED_USER", UserManager::verifyLogin(email, senha));
+}
+
+GTEST_TEST(JsonModuleTest, removeUser) {
+    Json::Value email = "teste@teste.com";
+    Json::Value senha = "12345";
+    GTEST_ASSERT_EQ("SUCESS", UserManager::removeUser(email, senha));
 }
 
 /**

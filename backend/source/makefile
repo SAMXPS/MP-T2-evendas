@@ -9,7 +9,7 @@ LDIR :=../lib		# Diretório de libs
 
 LIBS=-lm $(shell mysql_config --libs)
 
-SRC_FILES := JsonModule.cpp DatabaseModule.cpp Backend.cpp
+SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp Backend.cpp
 OBJ_FILES := $(patsubst ./%.cpp,$(ODIR)/%.o,$(SRC_FILES))
 
 TEST_SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp Test.cpp
