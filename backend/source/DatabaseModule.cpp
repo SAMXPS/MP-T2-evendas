@@ -1,56 +1,78 @@
+#include "../headers/DatabaseModule.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
-#include <string>
-#include "mysql_connection.h"
-
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
 
 using namespace std;
 
-bool conectarBanco(){
-    static char *opt_host_name = "190.115.198.19"; //Nome do Servidor (default - localhost)
-    static char *opt_user_name = "evendas"; //Nome do Usuário
-    static char *opt_password = "WgAC95xFZHcBdJPH"; //Senha
-    static unsigned int opt_port_num = 3306; //Numero da Porta 
-    static char *opt_socket_name = NULL; //Numero do socket
-    static char *opt_db_name = "evendas"; //Nome do Banco de dados
-    static unsigned int opt_flags = 0; //Status da conexao
-    MYSQL *conn; //Ponteiro para conexão
-    MYSQL_RES *res; //Ponteiro dos Resultados
-    MYSQL_ROQ roq; //Linha
-    setlocale(LC_ALL, "Portuguese");
+DatabaseModule* DatabaseModule::instance = nullptr;
 
-    conn=mysql_init(NULL);
-    mysql_real_connect(conn,opt_host_name,opt_password,opt_db_name,
-    opt_port_num,opt_socket_name,opt_flags);
+DatabaseModule::~DatabaseModule(){
+     try {
+          disconnect();
+     } catch(...) {
+
+     }
 }
 
-bool desconectarBanco(){
-
+DatabaseModule* DatabaseModule::getInstance() {
+     if (instance == nullptr)
+          instance = new DatabaseModule();
+     return instance;
 }
 
-bool consultarBanco(){
-    SQL="select into usuarios(nome,endereco,email,senha) values ("'+nome+'","'+endereco+'","'+email+'","'+senha+'");";
+bool DatabaseModule::connect() {
+     mysql_init(&this->connection);
+
+     if (mysql_real_connect(&this->connection, "127.0.0.1", "evendas", "WgAC95xFZHcBdJPH", "evendas", 0, NULL, 0)) {
+          this->connected = true;
+          return true;
+     } else {
+          this->connected = false;
+          throwLastError();
+          return false;
+     }
 }
 
-bool inserirBanco(){
-
-
-    if(mysql_query(conn,SQL)){
-        exit(1);
-    }
+bool DatabaseModule::disconnect() {
+     mysql_close(&this->connection);
+     this->connected = false;
 }
 
-bool inserirBancoUsuarios(nome,endereco,email,senha){
-    SQL="insert into usuarios(nome,endereco,email,senha) values ("'+nome+'","'+endereco+'","'+email+'","'+senha+'");";
+void DatabaseModule::throwLastError() {
+     throw DatabaseError("Erro " + std::to_string(mysql_errno(&this->connection)) + ": " + mysql_error(&this->connection));
 }
 
-bool atualizarBancoUsuarios(){
-    SQL="update into usuarios(nome,endereco,email,senha) values ("'+nome+'","'+endereco+'","'+email+'","'+senha+'");";
-}
+DatabaseResult* DatabaseModule::executeQuery(const std::string&query) {
+     if (!this->connected)
+          this->connect();
 
-bool removerBanco(email){
+     if (mysql_query(&this->connection, query.c_str())) {
+          throwLastError();
+     }
 
+     result = mysql_store_result(&this->connection);
+     int num_fields = mysql_num_fields(result);
+
+     MYSQL_FIELD *field;
+     std::string fields[num_fields];
+
+     for (int i = 0; field = mysql_fetch_field(result); i++) {
+          fields[i] = field->name;
+     }
+
+     MYSQL_ROW _row;
+
+     DatabaseResult* resultado = new DatabaseResult();
+
+     while ((_row = mysql_fetch_row(result))) {
+          DatabaseRow row;
+          for(int i = 0; i < num_fields; i++) {
+               row[fields[i]] = _row[i] ? _row[i] : "NULL";
+          }
+          resultado->push_back(row);
+     }
+
+     mysql_free_result(result);
+     return resultado;
 }
