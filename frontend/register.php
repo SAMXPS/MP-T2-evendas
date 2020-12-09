@@ -1,24 +1,15 @@
-<head>
-    <meta charset="UTF-8">
-</head>
-
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
 <div class="container center">
     <div class="row">
-        <h5>Realizar Login</h5>
+        <h5>Realizar Cadastro</h5>
     </div>
     <div class="row">
         <form class="col s12" id="register-form">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="name" type="text" class="validate">
+                    <label for="name">Nome</label>
+                </div>
+            </div>
             <div class="row">
                 <div class="input-field col s6">
                     <input id="email" type="email" class="validate">
@@ -28,10 +19,10 @@
                     <input id="password" type="password" class="validate">
                     <label for="password">Senha</label>
                 </div>
-                <input id="action" type="hidden" value="verifyLogin">
+                <input id="action" type="hidden" value="registerUser">
             </div>
             <div class="row">
-                <button class="btn right">Logar</button>
+                <button class="btn right">Cadastrar</button>
             </div>
         </form>
     </div>
@@ -50,15 +41,8 @@
         $("#register-form").submit(function(event){
             event.preventDefault();
             data = parseFormData("#register-form");
-
-            $.get( "backend.php", data, function(data) {
-                data = JSON.parse(data);
-                if (data.data == "VALID_PASSWORD") {
-                    alert("Senha correta!");
-                }
-                if (data.data == "INVALID_PASSWORD") {
-                    alert("Usuário ou senha incorretos.");
-                }
+            $.get( "backend.php", {data}, function(data) {
+                console.log(data);
             })
         });
     });

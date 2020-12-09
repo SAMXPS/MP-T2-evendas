@@ -14,8 +14,7 @@ std::string UserManager::verifyLogin(Json::Value email, Json::Value password) {
             else {
                 return "INVALID_PASSWORD";
             }
-        }
-        else {
+        } else {
             return "UNREGISTERED_USER";
         }
     } catch (DatabaseError&e) {
@@ -63,7 +62,7 @@ std::string UserManager::registerUser(Json::Value nome, Json::Value senha, Json:
             auto element = result->front();
             if (result->size()>0) {   
                 if (element["SENHA"].compare(senha.asString()) == 0 && element["EMAIL"].compare(email.asString()) == 0 && element["NOME"].compare(email.asString()) == 0 && element["EMAIL"].compare(phoneNum.asString()) == 0) {
-                    return "SUCESS";
+                    return "SUCCESS";
                 }
                 else {
                     return "ERROR";
@@ -85,7 +84,7 @@ std::string UserManager::removeUser(Json::Value email, Json::Value senha) {
             result = DatabaseModule::getInstance()->executeQuery("DELETE FROM `usuarios` WHERE EMAIL = '" + email.asString() + "'");
             auto element = result->front();
             if (result->size() == 0) {   
-                return "SUCESS";
+                return "SUCCESS";
             } else {
                 return "ERROR";
             }
