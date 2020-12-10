@@ -8,7 +8,7 @@ $obj->session = $_SESSION;
 
 $json = addslashes(json_encode($obj));
 
-$saida = shell_exec("echo $json  | ../backend/bin/backend");
+$saida = shell_exec("echo $json | ../backend/bin/backend");
 
 $saida_json = json_decode($saida);
 

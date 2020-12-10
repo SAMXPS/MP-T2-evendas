@@ -29,21 +29,9 @@
 </div>
 
 <script>
-    function parseFormData(form_id){
-        data = {};
-        $(form_id).find('input').each(function(obj){
-            data[$(this).attr('id')] = $(this).val();
-        });
-        return data;
-    }
-
     $(document).ready(function(){
-        $("#register-form").submit(function(event){
-            event.preventDefault();
-            data = parseFormData("#register-form");
-            $.get( "backend.php", {data}, function(data) {
-                console.log(data);
-            })
+        Evendas.prepareForm("#register-form", function(success, data) {
+            console.log(data);
         });
     });
 </script>

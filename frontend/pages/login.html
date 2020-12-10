@@ -23,25 +23,13 @@
 </div>
 
 <script>
-    function parseFormData(form_id){
-        data = {};
-        $(form_id).find('input').each(function(obj){
-            data[$(this).attr('id')] = $(this).val();
-        });
-        return data;
-    }
-
     $(document).ready(function(){
-        $("#register-form").submit(function(event){
-            event.preventDefault();
-            data = parseFormData("#register-form");
-            Evendas.getBackend(data, function(success, data) {
-                if (data.data == "VALID_PASSWORD") {
-                    Evendas.loadPage("dashboard.html");
-                } else {
-                    alert("Usuário ou senha incorretos.");
-                }
-            });
+        Evendas.prepareForm("#register-form", function(success, data) {
+            if (data.data == "VALID_PASSWORD") {
+                Evendas.loadPage("dashboard.html");
+            } else {
+                alert("Usuário ou senha incorretos.");
+            }
         });
     });
 </script>
