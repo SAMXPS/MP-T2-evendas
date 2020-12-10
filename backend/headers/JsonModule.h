@@ -1,5 +1,5 @@
 #ifndef _JSON_MODULE
-#include <string>
+#include <istream>
 #include <jsoncpp/json/json.h>
 
 /**
@@ -16,7 +16,7 @@ namespace JsonModule{
      * @param input 
      * @return Json::Value 
      */
-    Json::Value BackendInterface(const std::string&input);
+    Json::Value BackendInterface(std::istream&input);
 
 }
 

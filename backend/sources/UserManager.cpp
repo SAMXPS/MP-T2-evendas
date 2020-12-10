@@ -18,7 +18,7 @@ std::string UserManager::verifyLogin(Json::Value email, Json::Value password) {
             return "UNREGISTERED_USER";
         }
     } catch (DatabaseError&e) {
-        std::cout << e.what();
+        return "DATABASE_ERROR:" + e.what();
     }
 }
 
@@ -70,7 +70,7 @@ std::string UserManager::registerUser(Json::Value email, Json::Value nome, Json:
             return "REGISTERED_USER";
         }
     } catch (DatabaseError&e) {
-        std::cout << e.what();
+        return "DATABASE_ERROR:" + e.what();
     }
 }
 
@@ -90,7 +90,7 @@ std::string UserManager::removeUser(Json::Value email, Json::Value senha) {
             return "UNREGISTERED_USER";
         }
     } catch (DatabaseError&e) {
-        std::cout << e.what();
+        return "DATABASE_ERROR:" + e.what();
     } 
 }
 

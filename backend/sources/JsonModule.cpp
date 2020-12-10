@@ -1,12 +1,11 @@
 #include "../headers/JsonModule.h"
 #include "../headers/DatabaseModule.h"
 #include "../headers/UserManager.h"
-#include <iostream>
 
 using namespace JsonModule;
 using namespace UserManager;
 
-Json::Value JsonModule::BackendInterface(const std::string&input) {  
+Json::Value JsonModule::BackendInterface(std::istream&input) {  
     Json::Value request;
     std::string chave;
     Json::Value response;
@@ -17,7 +16,6 @@ Json::Value JsonModule::BackendInterface(const std::string&input) {
         response["status"] = "ERROR";
         response["error"] = "INVALID_JSON";
         response["error_message"] = reader.getFormattedErrorMessages();
-        
         return response;
     }
 

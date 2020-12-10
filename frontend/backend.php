@@ -15,11 +15,11 @@ $saida_json = json_decode($saida);
 if ($json == null) {
     echo "Saida inválida: $saida";
     die();
-} 
+}
 
-if (isset($saida_json->session))
+if (isset($saida_json->session)) {
     $_SESSION = $saida_json->session;
-
-unset($saida_json->session);
+    unset($saida_json->session);
+}
 
 echo json_encode($saida_json);
