@@ -1,0 +1,2 @@
+cd sources/
+make backend
