@@ -61,7 +61,7 @@ namespace UserManager {
      * @param phoneNum 
      * @return std::string 
      */
-    std::string registerUser(Json::Value name, Json::Value password, Json::Value email, Json::Value cpf, Json::Value phoneNum);
+    std::string registerUser(Json::Value email, Json::Value nome, Json::Value senha);
 
     /**
      * @brief Remove usuario

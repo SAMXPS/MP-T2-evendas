@@ -28,7 +28,7 @@ Json::Value JsonModule::BackendInterface(const std::string&input) {
         // Verifica a senha do usuario.
         response["data"] = verifyLogin(request["data"]["email"],request["data"]["password"]);
     } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
-        response["data"] = registerUser(request["data"]["name"],request["data"]["email"], request["data"]["password"], request["data"]["cpf"], request["data"]["phone"] );
+        response["data"] = registerUser(request["data"]["email"], request["data"]["name"], request["data"]["password"]);
     } else if(action.compare("carregarProduto") == 0) {  
         // carrega um produto de um anunciante.
 
