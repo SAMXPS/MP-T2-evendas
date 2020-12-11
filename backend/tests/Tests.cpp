@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "DatabaseModuleTest.hpp"
 #include "JsonModuleTest.hpp"
-#include "UserMangerTest.hpp"
+#include "UserManagerTest.hpp"
 
 // Implementação de função main do gtest
 int main(int argc, char **argv) {

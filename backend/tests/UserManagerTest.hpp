@@ -9,11 +9,11 @@ class UserManagerTest: public ::testing::Test {
         } 
 
         void SetUp() { 
-            // Código que roda antes da execução de teste
+
         }
 
         void TearDown() { 
-            // Código que roda depois da execução do teste
+            
         }
 };
 
