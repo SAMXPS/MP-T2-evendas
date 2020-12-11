@@ -3,6 +3,11 @@
 #include <string>
 #include <jsoncpp/json/json.h>
 
+
+/**
+ * @brief Classe que contem dados do usuario
+ * 
+ */
 class User {
     private:
         int id;
@@ -33,10 +38,10 @@ namespace UserManager {
      * 
      * Carrega os dados de um usuário.
      * 
-     * @param userID 
+     * @param email 
      * @return User* 
      */
-    User* loadUser(const std::string&userID);
+    User* loadUser(const std::string&email);
 
     /**
      * @brief verifica usuário e senha.
@@ -47,7 +52,7 @@ namespace UserManager {
      * @param senha 
      * @return std::string 
      */
-    std::string verifyLogin(Json::Value email, Json::Value password);
+    std::string verifyLogin(const std::string&email, const std::string&senha);
 
     /**
      * @brief Registra um usuário
@@ -57,20 +62,19 @@ namespace UserManager {
      * @param name 
      * @param password 
      * @param email 
-     * @param cpf 
-     * @param phoneNum 
+     * 
      * @return std::string 
      */
-    std::string registerUser(Json::Value email, Json::Value nome, Json::Value senha);
+    std::string registerUser(const std::string&email, const std::string&nome, const std::string&senha);
 
     /**
      * @brief Remove usuario
      * 
      * @param email 
-     * @param senha 
+     *  
      * @return std::string 
      */
-    std::string removeUser(Json::Value email, Json::Value senha);
+    std::string removeUser(const std::string&email);
 };
 
 #endif//_USER_MANAGER

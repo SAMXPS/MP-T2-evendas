@@ -2,13 +2,13 @@
 #include "../headers/DatabaseModule.h"
 #include <iostream>
 
-std::string UserManager::verifyLogin(Json::Value email, Json::Value password) {
+std::string UserManager::verifyLogin(const std::string&email, const std::string&password) {
     try {
         DatabaseResult* result;
-        result = DatabaseModule::getInstance()->executeQuery("SELECT SENHA FROM `usuarios` WHERE EMAIL = '" + email.asString() + "'");
-        if (result->size()>0) {   
+        result = DatabaseModule::getInstance()->executeQuery("SELECT SENHA FROM `usuarios` WHERE EMAIL = '" + email + "'");
+        if (result && result->size() > 0) {   
             auto element = result->front();
-            if (element["SENHA"].compare(password.asString()) == 0) {
+            if (element["SENHA"] == password) {
                 return "VALID_PASSWORD";
             }
             else {
@@ -22,45 +22,32 @@ std::string UserManager::verifyLogin(Json::Value email, Json::Value password) {
     }
 }
 
-/*
-void test() {
-    try {
-        DatabaseResult* result;
-        result = DatabaseModule::getInstance()->executeQuery("SELECT * FROM usuarios");
-        if (result) {
-            for (auto elemento : *result) {
-                std::cout << "Email: " << elemento["EMAIL"] << std::endl;
-            }
-        }
-
-        std::string email = "bsbcraftplays@gmail.com";
-        result = DatabaseModule::getInstance()->executeQuery("SELECT SENHA FROM usuarios WHERE EMAIL = '" + email + "'");
-        if (result && result->size() > 0) {
-            auto elemento = result->front();
-            std::cout << "Senha: " << elemento["SENHA"] << std::endl;
-        }
-
-    } catch (DatabaseError&e) {
-        std::cout << e.what();
-    }
-}
-*/
-
 std::string User::getNome() {
     return this->nome;
+}
+
+std::string User::getEmail() {
+return this->email;
+}
+
+std::string User::getSenha() {
+return this->senha;
+}
+int User::getId() {
+return this->id;
 }
 
 bool User::verifyPassword(const std::string&senhaDigitada) {
     return this->senha == senhaDigitada;
 }
 
-std::string UserManager::registerUser(Json::Value email, Json::Value nome, Json::Value senha) {
+std::string UserManager::registerUser(const std::string&email, const std::string&nome, const std::string&senha) {
     try {
-        if (UserManager::verifyLogin(email, senha).compare("UNREGISTERED_USER") == 0){
+        if (UserManager::loadUser(email) == NULL){
             DatabaseResult* result;
-            result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `usuarios`(`ID`, `EMAIL`, `NOME`, `SENHA`) VALUES (0,'" + email.asString() + "','" + nome.asString() + "','" + senha.asString() + "'");
-            if (UserManager::verifyLogin(email, senha).compare("REGISTERED_USER") == 0) {
-                return "SUCESS";
+            result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `usuarios`(`ID`, `EMAIL`, `NOME`, `SENHA`) VALUES (NULL,'" + email + "','" + nome + "','" + senha + "')");
+            if (UserManager::loadUser(email)->getEmail() == email) {
+                return "SUCCESS";
             }
             else {
                 return "ERROR";
@@ -74,15 +61,15 @@ std::string UserManager::registerUser(Json::Value email, Json::Value nome, Json:
     }
 }
 
-std::string UserManager::removeUser(Json::Value email, Json::Value senha) {
+std::string UserManager::removeUser(const std::string&email) {
     try {
-        if (UserManager::verifyLogin(email, senha).compare("VALID_PASSWORD")){
+        if (loadUser(email) != NULL){
             DatabaseResult* result;
-            result = DatabaseModule::getInstance()->executeQuery("DELETE FROM `usuarios` WHERE EMAIL = '" + email.asString() + "'");
-            auto element = result->front();
-            if (result->size() == 0) {   
+            result = DatabaseModule::getInstance()->executeQuery("DELETE FROM `usuarios` WHERE EMAIL = '" + email + "'");
+            if (loadUser(email) == NULL) {
                 return "SUCCESS";
-            } else {
+            }
+            else {
                 return "ERROR";
             }
         }
@@ -95,6 +82,15 @@ std::string UserManager::removeUser(Json::Value email, Json::Value senha) {
 }
 
 
-User* loadUser(const std::string&email) {
-
+User* UserManager::loadUser(const std::string&email) {
+    DatabaseResult* result;
+    result = DatabaseModule::getInstance()->executeQuery("SELECT * FROM `usuarios` WHERE EMAIL = '" + email + "'");
+    if (result && result->size() > 0) {
+        auto element = result->front();
+        User *client = new User(std::stoi(element["ID"]), element["NOME"], element["EMAIL"], element["SENHA"]);;
+        return client;
+    }
+    else {
+        return NULL;
+    }
 }

@@ -24,19 +24,19 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
     
     if (action.compare("verifyLogin") == 0) { 
         // Verifica a senha do usuario.
-        response["data"] = verifyLogin(request["data"]["email"],request["data"]["password"]);
+        response["data"] = verifyLogin(request["data"]["email"].asString(),request["data"]["password"].asString());
     } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
-        response["data"] = registerUser(request["data"]["email"], request["data"]["name"], request["data"]["password"]);
-    } else if(action.compare("carregarProduto") == 0) {  
+        response["data"] = registerUser(request["data"]["email"].asString(), request["data"]["name"].asString(), request["data"]["password"].asString());
+    } else if(action.compare("loadItem") == 0) {  
         // carrega um produto de um anunciante.
 
-    } else if(action.compare("listarProdutos") == 0) {  
+    } else if(action.compare("ListItem") == 0) {  
         // lista os produtos conforme os parametros passados.
 
-    } else if(action.compare("buscarVendedor") == 0) {  
+    } else if(action.compare("searchSeller") == 0) {  
         // busca dados de determinado vendedor.
 
-    } else if(action.compare("buscarUsuario") == 0) {  
+    } else if(action.compare("searchClient") == 0) {  
         // busca dados de determinado usuario.
 
     } else {
