@@ -1,29 +1,35 @@
 #ifndef PRODUCT_H_INCLUDED
 #define PRODUCT_H_INCLUDED
 #include <string>
+#include <jsoncpp/json/json.h>
 
 /**
  * @brief Classe que contem dados do produto
  */
 class Product {
     private:
+
+        int id;
         std::string name;
+        std::string description;
         float price;
         std::string category;
-        std::string longDescription;
         std::string imagePath;
-        std::string seller;
+        int sellerId;
 
     public:
-        Product(const std::string&name, float price,const std::string&category,const std::string&longDescription
-        , const std::string&imagePath, const std::string&seller);
+        Product(int id, const std::string&name, const std::string&description, float price, const std::string&category,
+        const std::string&imagePath, int sellerId);
 
-        std::string getName();
-        float getPrice();
-        std::string getCategory();
-        std::string getLongDescription();
-        std::string getImagePath();
-        std::string getSeller();
+        int getId() const;
+        std::string getName() const;
+        float getPrice() const;
+        std::string getCategory() const;
+        std::string getDescription() const;
+        std::string getImagePath() const;
+        int getSellerId() const;
+
+        Json::Value toJson();
 };
 
 #endif // PRODUCT_H_INCLUDED
