@@ -1,7 +1,10 @@
 var Evendas = {};
 
 Evendas.loadPage = function(path) {
-    $("main").load("pages/" + path);
+    if (path.startsWith("logged/") && Evendas.loggedUser == null) {
+        alert("Para acessar essa funcionalidade, é preciso estar logado.");
+        Evendas.loadPage("login.html");
+    } else $("main").load("pages/" + path);
 };
 
 Evendas.getBackend = function(data, callback){
@@ -39,7 +42,14 @@ Evendas.verifySession = function() {
             $("#logged_nav_name").text(Evendas.loggedUser.name);
             $("#unlogged_nav").hide();
             Evendas.loadPage("logged/dashboard.html");
+            Evendas.getBackend({action: "getUserData"}, function(success, response) {
+                if (success) {
+                    Evendas.userData = response.user_data;
+                    console.log(response);
+                }
+            });
         } else {
+            Evendas.loggedUser = null;
             $("#unlogged_nav").show();
             $("#logged_nav").hide();
             Evendas.loadPage("login.html");

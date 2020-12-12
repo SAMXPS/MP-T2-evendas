@@ -1,1 +1,54 @@
-Aqui serão mostrados dados de perfil.
+<div class="container">
+    <h5>Dados de Perfil</h5>
+    <form class="col s12" id="user-form">
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="name" type="text" class="validate">
+                <label for="name" class="active">Nome</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="email" type="email" disabled>
+                <label for="email" class="active">Email</label>
+            </div>
+            <input id="action" type="hidden" value="updateUser">
+        </div>
+        <div class="row">
+            <button class="btn right">Salvar</button>
+        </div>
+    </form>
+    <h5>Dados Complementares</h5>
+    <form class="col s12" id="userdata-form">
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <input id="document" type="text" class="validate">
+                <label for="document" class="active">CPF</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <input id="phone_number" type="text" class="validate">
+                <label for="phone_number" class="active">Telefone</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <input id="address" type="text" class="validate">
+                <label for="address" class="active">Endereço</label>
+            </div>
+        </div>
+        <input id="action" type="hidden" value="updateUserData">
+        <div class="row">
+            <button class="btn right">Salvar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#name").val(Evendas.loggedUser.name);
+        $("#email").val(Evendas.loggedUser.email);
+        $("#address").val(Evendas.userData.address);
+        $("#document").val(Evendas.userData.document);
+        $("#phone_number").val(Evendas.userData.phoneNumber);
+    });
+</script>

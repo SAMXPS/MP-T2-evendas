@@ -26,6 +26,8 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return JsonModule::verifySession(request);
     } else if(action.compare("endSession") == 0) {
         return JsonModule::endSession(request);
+    } else if(action.compare("getUserData") == 0) {
+        return JsonModule::getUserData(request);
     } else if(action.compare("loadItem") == 0) {  
 
     } else if(action.compare("ListItem") == 0) {  
@@ -105,5 +107,23 @@ Json::Value JsonModule::endSession(const Json::Value&request) {
     response["status"] = "OK";
     response["session"] = "destroy";
 
+    return response;
+}
+
+Json::Value JsonModule::getUserData(const Json::Value&request) {
+    Json::Value response;
+    Json::Value session_info = verifySession(request);
+
+    if (session_info["valid_session"].asBool()) {
+        response["status"] = "OK";
+        int userId = std::stoi((request["data"]["id"] != Json::nullValue ? request["data"]["id"] : request["session"]["user"]["id"]).asString());
+        response["id"] = userId;
+        UserData* userData = UserManager::loadUserData(userId);
+        response["user_data"] = userData ? userData->toJson() : Json::nullValue;
+        return response;
+    }
+
+    response["status"] = "ERROR";
+    response["error"] = "INVALID_SESSION";
     return response;
 }
