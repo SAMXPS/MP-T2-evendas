@@ -18,4 +18,4 @@ class JsonModuleTest: public ::testing::Test {
         }
 };
 
-#endif //JSON_MODULE_TEST_HPP_INCLUDED
+#endif // JSON_MODULE_TEST_HPP_INCLUDED
