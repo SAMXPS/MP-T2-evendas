@@ -2,9 +2,6 @@
 #include "../headers/DatabaseModule.h"
 #include "../headers/UserManager.h"
 
-using namespace JsonModule;
-using namespace UserManager;
-
 Json::Value JsonModule::BackendInterface(std::istream&input) {  
     Json::Value request;
     std::string chave;
@@ -19,28 +16,23 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return response;
     }
 
-    // processa a ação da requisição
     std::string action = request["data"].get("action","vazio").asString();
     
-    if (action.compare("verifyLogin") == 0) { 
-        // Verifica a senha do usuario.
-        response["data"] = verifyLogin(request["data"]["email"].asString(),request["data"]["password"].asString());
-    } else if(action.compare("registerUser") == 0) {  // cadastra novo cliente conforme informações passadas.  
-        response["data"] = registerUser(request["data"]["email"].asString(), request["data"]["name"].asString(), request["data"]["password"].asString());
+    if (action.compare("verifyLogin") == 0) {
+        User* user = UserManager::verifyLogin(request["data"]["email"].asString(),request["data"]["password"].asString());
+        response["data"] = user == NULL ? "INVALID_PASSWORD" : "VALID_PASSWORD";
+    } else if(action.compare("registerUser") == 0) {
+        bool success = UserManager::registerUser(request["data"]["email"].asString(), request["data"]["name"].asString(), request["data"]["password"].asString());
+        response["data"] = success ? "SUCCESS" : "FAIL";
     } else if(action.compare("loadItem") == 0) {  
-        // carrega um produto de um anunciante.
 
     } else if(action.compare("ListItem") == 0) {  
-        // lista os produtos conforme os parametros passados.
 
     } else if(action.compare("searchSeller") == 0) {  
-        // busca dados de determinado vendedor.
 
     } else if(action.compare("searchClient") == 0) {  
-        // busca dados de determinado usuario.
 
     } else {
-        // acao nao encontrada. um erro eh retornado.
         response["status"] = "ERROR";
         response["error"] = "INVALID_ACTION";
         return response;

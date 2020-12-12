@@ -1,10 +1,12 @@
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <jsoncpp/json/json.h>
+#include "../headers/Backend.h"
 #include "../headers/JsonModule.h"
-#include "../headers/DatabaseModule.h"
+#include <iostream>
 
 int main() {
-    std::cout << JsonModule::BackendInterface(std::cin);
+    Backend* backend = new Backend();
+    backend->run(std::cin, std::cout);
+}
+
+void Backend::run(std::istream input, std::ostream output) {
+    output << JsonModule::BackendInterface(input);
 }

@@ -1,7 +1,7 @@
-IDIR =../headers	# Diretório de include	
 
+INCLUDES=-I../headers -I../headers/classes -I../tests/
 CC=g++
-CFLAGS=-I$(IDIR) -ljsoncpp $(shell mysql_config --cflags)
+CFLAGS=$(INCLUDES) -ljsoncpp $(shell mysql_config --cflags)
 GTEST_FLAGS=-lgtest -lpthread
 
 ODIR :=../bin/obj	# Diretório de objetos.
@@ -10,7 +10,7 @@ LDIR :=../lib		# Diretório de libs.
 LIBS=-lm $(shell mysql_config --libs)
 
 # Arquivos de codigo fonte comuns.
-COMMON_SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp
+COMMON_SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp $(wildcard classes/*.cpp)
 
 # Arquivos de código fonte exclusivos do deploy do backend.
 BACKEND_SRC_FILES := $(COMMON_SRC_FILES) Backend.cpp
@@ -24,7 +24,7 @@ $(ODIR)/%.o: %.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 test: $(TEST_OBJ_FILES)
-	$(CC) -o ../bin/$@ $^ $(CFLAGS) $(LIBS) $(GTEST_FLAGS)
+	$(CC) -o ../bin/$@ $^ $(CFLAGS) $(LIBS) $(GTEST_FLAGS) -g
 
 backend:  $(BACKEND_OBJ_FILES)
 	$(CC) -o ../bin/$@ $^ $(CFLAGS) $(LIBS)

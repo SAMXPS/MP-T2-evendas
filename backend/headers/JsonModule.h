@@ -1,4 +1,5 @@
-#ifndef _JSON_MODULE
+#ifndef JSON_MODULE_H_INCLUDED
+#define JSON_MODULE_H_INCLUDED
 #include <istream>
 #include <jsoncpp/json/json.h>
 
@@ -6,19 +7,17 @@
  * @brief Modulo que processa as requisições e respostas ao cliente
  * 
  */
-namespace JsonModule{
+class JsonModule{
+    public:
+        /**
+         * @brief Interface de interação do backend.
+         * 
+         * Realiza a interação entre o frontend e o modulo de banco de dados
+         * 
+         * @param input 
+         * @return Json::Value 
+         */
+        static Json::Value BackendInterface(std::istream&input);
+};
 
-    /**
-     * @brief Interface de interação do backend.
-     * 
-     * Realiza a interação entre o frontend e o modulo de banco de dados
-     * 
-     * @param input 
-     * @return Json::Value 
-     */
-    Json::Value BackendInterface(std::istream&input);
-
-}
-
-#define _JSON_MODULE
-#endif // _JSON_MODULE
+#endif//JSON_MODULE_H_INCLUDED
