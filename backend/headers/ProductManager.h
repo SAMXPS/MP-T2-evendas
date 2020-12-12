@@ -6,7 +6,6 @@
 
 class ProductManager {
     public:
-
         /**
          * @brief Carrega produto do banco de dados.
          * 
@@ -71,6 +70,8 @@ class ProductManager {
          * @return std::list<std::string> 
          */
         static std::list<std::string> listCategory();
+
+        private:
 };
 
 #endif // PRODUCT_MANAGER_H_INCLUDED

@@ -18,7 +18,7 @@ Product* ProductManager::loadProduct(int productId) {
     return nullptr;
 }
 
-std::list<Product> loadUserProducts(int sellerId) {
+std::list<Product> ProductManager::loadUserProducts(int sellerId) {
     std::list<Product> list;
 
     DatabaseResult* result;
@@ -53,7 +53,7 @@ std::list<Product> loadUserProducts(int sellerId) {
     return list;
 };
 
-bool addProduct(const Product&product) {
+bool ProductManager::addProduct(const Product&product) {
     try {
         if (product.getId() == 0 || ProductManager::loadProduct(product.getId()) == NULL) {
             DatabaseModule::getInstance()->executeQuery("INSERT INTO `products`(`ID`, `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `IMAGE`, `SELLER_ID`) VALUES ('" + std::to_string(product.getId()) + "','" + product.getName() + "', '" + product.getDescription() + "', '" + std::to_string(product.getPrice()) + "', '" + product.getCategory() + "', '" + product.getImagePath() + "', '" + std::to_string(product.getSellerId()) +"')");
@@ -66,7 +66,7 @@ bool addProduct(const Product&product) {
     return false;
 }
 
-bool removeProduct(int productId) {
+bool ProductManager::removeProduct(int productId) {
     try {
         std::string _id = std::to_string(productId);
         DatabaseModule::getInstance()->executeQuery("DELETE FROM `products` WHERE `ID` = '" + _id + "'");
@@ -76,7 +76,7 @@ bool removeProduct(int productId) {
     return false;
 };
 
-bool updateProduct(int productId, const Product&newProduct) {
+bool ProductManager::updateProduct(int productId, const Product&newProduct) {
     try {
         std::string _id = std::to_string(productId);
         std::string newId = std::to_string(newProduct.getId());
@@ -96,7 +96,7 @@ bool updateProduct(int productId, const Product&newProduct) {
     return false;
 }
 
-std::list<std::string> listCategory() {
+std::list<std::string> ProductManager::listCategory() {
     DatabaseResult* result;
     std::list<std::string> list;
     try {
