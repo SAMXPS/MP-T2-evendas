@@ -7,6 +7,6 @@ int main() {
     backend->run(std::cin, std::cout);
 }
 
-void Backend::run(std::istream input, std::ostream output) {
+void Backend::run(std::istream&input, std::ostream&output) {
     output << JsonModule::BackendInterface(input);
 }

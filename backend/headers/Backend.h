@@ -6,7 +6,7 @@
 class Backend {
     public:
         Backend() { }
-        void run(std::istream input, std::ostream output);
+        void run(std::istream&input, std::ostream&output);
 };
 
 #endif//BACKEND_H_INCLUDED
