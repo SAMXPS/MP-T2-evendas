@@ -26,3 +26,12 @@ std::string User::getPassword() const{
 bool User::verifyPassword(const std::string&typedPassword) const{
     return this->password == typedPassword;
 }
+
+Json::Value User::toJson() {
+    Json::Value user;
+    user["id"] = id;
+    user["name"] = name;
+    user["email"] = email;
+    user["password"] = password;
+    return user;
+}

@@ -22,3 +22,12 @@ std::string UserData::getDocument() const{
 std::string UserData::getPhoneNumber() const{
     return this->phoneNumber;
 }
+
+Json::Value UserData::toJson() {
+    Json::Value userData;
+    userData["id"] = id;
+    userData["address"] = address;
+    userData["document"] = document;
+    userData["phoneNumber"] = phoneNumber;
+    return userData;
+}

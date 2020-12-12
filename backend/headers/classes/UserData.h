@@ -1,6 +1,7 @@
 #ifndef USER_DATA_H_INCLUDED
 #define USER_DATA_H_INCLUDED
 #include <string>
+#include <jsoncpp/json/json.h>
 
 /**
  * @brief Classe que contem dados do usuario
@@ -19,6 +20,8 @@ class UserData {
         std::string getAddress() const;
         std::string getDocument() const;
         std::string getPhoneNumber() const;
+
+        Json::Value toJson();
 };
 
 #endif//USER_DATA_H_INCLUDED

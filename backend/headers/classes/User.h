@@ -1,6 +1,7 @@
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
 #include <string>
+#include <jsoncpp/json/json.h>
 
 /**
  * @brief Classe que contem dados do usuario
@@ -21,6 +22,8 @@ class User {
         std::string getPassword() const;
 
         bool verifyPassword(const std::string&typedPassword) const;
+
+        Json::Value toJson();
 };
 
 #endif//USER_H_INCLUDED
