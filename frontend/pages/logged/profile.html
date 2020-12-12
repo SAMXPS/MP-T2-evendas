@@ -50,5 +50,12 @@
         $("#address").val(Evendas.userData.address);
         $("#document").val(Evendas.userData.document);
         $("#phone_number").val(Evendas.userData.phoneNumber);
+        
+        Evendas.prepareForm("#userdata-form", function(success, data) {
+            Evendas.loadUserData(function(userData) {
+                alert("Dados atualizados com sucesso!");
+                Evendas.loadPage("logged/profile.html");
+            });
+        });
     });
 </script>

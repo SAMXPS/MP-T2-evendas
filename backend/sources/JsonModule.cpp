@@ -28,8 +28,8 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return JsonModule::endSession(request);
     } else if(action.compare("getUserData") == 0) {
         return JsonModule::getUserData(request);
-    } else if(action.compare("loadItem") == 0) {  
-
+    } else if(action.compare("updateUserData") == 0) {  
+        return JsonModule::updateUserData(request);
     } else if(action.compare("ListItem") == 0) {  
 
     } else if(action.compare("searchSeller") == 0) {  
@@ -120,6 +120,28 @@ Json::Value JsonModule::getUserData(const Json::Value&request) {
         response["id"] = userId;
         UserData* userData = UserManager::loadUserData(userId);
         response["user_data"] = userData ? userData->toJson() : Json::nullValue;
+        return response;
+    }
+
+    response["status"] = "ERROR";
+    response["error"] = "INVALID_SESSION";
+    return response;
+}
+
+
+Json::Value JsonModule::updateUserData(const Json::Value&request) {
+    Json::Value response;
+    Json::Value session_info = verifySession(request);
+
+    if (session_info["valid_session"].asBool()) {
+        response["status"] = "OK";
+        int id = request["session"]["user"]["id"].asInt();
+        std::string document = request["data"]["document"].asString();
+        std::string phone_number = request["data"]["phone_number"].asString();
+        std::string address = request["data"]["address"].asString();
+        UserData data(id, address, document, phone_number);
+        UserManager::saveUserData(data);
+        response["data"] = data.toJson();
         return response;
     }
 

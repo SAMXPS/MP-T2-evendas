@@ -34,6 +34,15 @@ Evendas.prepareForm = function(form_id, callback){
     });
 };
 
+Evendas.loadUserData = function(callback) {
+    Evendas.getBackend({action: "getUserData"}, function(success, response) {
+        if (success) {
+            Evendas.userData = response.user_data;
+            callback(response.userData);
+        }
+    });
+} 
+
 Evendas.verifySession = function() {
     Evendas.getBackend({action: "verifySession"}, function(success, response){
         if (success && response.valid_session) {
@@ -42,11 +51,8 @@ Evendas.verifySession = function() {
             $("#logged_nav_name").text(Evendas.loggedUser.name);
             $("#unlogged_nav").hide();
             Evendas.loadPage("logged/dashboard.html");
-            Evendas.getBackend({action: "getUserData"}, function(success, response) {
-                if (success) {
-                    Evendas.userData = response.user_data;
-                    console.log(response);
-                }
+            Evendas.loadUserData(function() {
+                console.log(response);
             });
         } else {
             Evendas.loggedUser = null;

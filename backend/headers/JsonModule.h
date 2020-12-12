@@ -14,6 +14,7 @@ class JsonModule {
         static Json::Value registerUser(const Json::Value&request);
         static Json::Value endSession(const Json::Value&request);
         static Json::Value getUserData(const Json::Value&request);
+        static Json::Value updateUserData(const Json::Value&request);
     public:
         /**
          * @brief Interface de interação do backend.
