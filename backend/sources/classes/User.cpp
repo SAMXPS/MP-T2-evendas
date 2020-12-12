@@ -7,22 +7,22 @@ User::User(int id, const std::string&name,const std::string&email,const std::str
     this->password = password;
 }    
 
-int User::getId() {
+int User::getId() const{
     return this->id;
 }
 
-std::string User::getName() {
+std::string User::getName() const{
     return this->name;
 }
 
-std::string User::getEmail() {
+std::string User::getEmail() const{
     return this->email;
 }
 
-std::string User::getPassword() {
+std::string User::getPassword() const{
     return this->password;
 }
 
-bool User::verifyPassword(const std::string&typedPassword) {
+bool User::verifyPassword(const std::string&typedPassword) const{
     return this->password == typedPassword;
 }

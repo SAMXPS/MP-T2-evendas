@@ -13,14 +13,14 @@ class User {
         std::string password;
 
     public:
-        User(int id, const std::string&name,const std::string&email,const std::string&password) ;
+        User(int id, const std::string&name,const std::string&email,const std::string&password);
 
-        int getId();
-        std::string getName();
-        std::string getEmail();
-        std::string getPassword();
+        int getId() const;
+        std::string getName() const;
+        std::string getEmail() const;
+        std::string getPassword() const;
 
-        bool verifyPassword(const std::string&typedPassword);
+        bool verifyPassword(const std::string&typedPassword) const;
 };
 
 #endif//USER_H_INCLUDED
