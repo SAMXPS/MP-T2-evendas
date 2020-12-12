@@ -8,13 +8,22 @@
             <li><a href="/app/login" class="white-text">Área do Cliente</a></li>
         </ul>
         <ul class="sidenav sidenav-fixed invesible-top" id="mobile-nav">
-            <li><a class="subheader">Usuários</a></li>
-            <li><a class="waves-effect sidenav-link" action="register.html">Fazer Cadastro</a></li>
-            <li><a class="waves-effect sidenav-link" action="login.html">Fazer Login</a></li>
+            <div id="logged_nav" hidden>
+                <li><div class="divider"></div></li>
+                <li><a class="subheader" id="logged_nav_name"></a></li>
+                <li><a class="waves-effect sidenav-link" action="logged/dashboard.html">Dashborad</a></li>
+                <li><a class="waves-effect sidenav-link" action="logged/profile.html">Perfil</a></li>
+                <li><a class="waves-effect sidenav-link" action="logged/announce.html">Anunciar</a></li>
+                <li><a class="waves-effect sidenav-link" action="logout.html">Sair</a></li>
+            </div>
+            <div id="unlogged_nav" hidden>
+                <li><a class="subheader">Novos Usuários</a></li>
+                <li><a class="waves-effect sidenav-link" action="register.html">Fazer Cadastro</a></li>
+                <li><a class="waves-effect sidenav-link" action="login.html">Fazer Login</a></li>
+            </div>
             <li><div class="divider"></div></li>
             <li><a class="subheader">Produtos</a></li>
-            <li><a class="waves-effect sidenav-link" action="login.html">Ver categorias</a></li>
-            <li><a class="waves-effect" href="#!"></a></li>
+            <li><a class="waves-effect sidenav-link" action="products/categories.html">Ver categorias</a></li>
         </ul>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
     </div>

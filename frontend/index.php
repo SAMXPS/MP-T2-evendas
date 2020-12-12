@@ -4,13 +4,13 @@
     include "page_sections/head.php";
     echo "<body>";
     include "page_sections/nav.php";
-    echo "<main></main>";
+    echo "<main><div class='center'>Carregando...</div></main>";
     include "page_sections/footer.php";
     echo "</body>";
 ?>
     <script>
         $(document).ready(function() {
-            Evendas.loadPage("login.html");
+            Evendas.verifySession();
         });
     </script>
 </html>

@@ -26,7 +26,7 @@
     $(document).ready(function(){
         Evendas.prepareForm("#register-form", function(success, data) {
             if (data.data == "VALID_PASSWORD") {
-                Evendas.loadPage("dashboard.html");
+                Evendas.verifySession();
             } else {
                 alert("Usuário ou senha incorretos.");
             }

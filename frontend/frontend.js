@@ -5,9 +5,7 @@ Evendas.loadPage = function(path) {
 };
 
 Evendas.getBackend = function(data, callback){
-    console.log(data);
     $.get("backend.php", data, function(data) {
-        console.log(data);
         data = JSON.parse(data);
         if (data.status == "OK") {
             callback(true, data);
@@ -30,6 +28,28 @@ Evendas.prepareForm = function(form_id, callback){
         event.preventDefault();
         data = Evendas.parseFormData(form_id);
         Evendas.getBackend(data, callback);
+    });
+};
+
+Evendas.verifySession = function() {
+    Evendas.getBackend({action: "verifySession"}, function(success, response){
+        if (success && response.valid_session) {
+            Evendas.loggedUser = response.user;
+            $("#logged_nav").show();
+            $("#logged_nav_name").text(Evendas.loggedUser.name);
+            $("#unlogged_nav").hide();
+            Evendas.loadPage("logged/dashboard.html");
+        } else {
+            $("#unlogged_nav").show();
+            $("#logged_nav").hide();
+            Evendas.loadPage("login.html");
+        }
+    });
+};
+
+Evendas.endSession = function() {
+    Evendas.getBackend({action: "endSession"}, function(success, response){
+        window.location.href = "/";
     });
 };
 

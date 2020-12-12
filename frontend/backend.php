@@ -18,7 +18,12 @@ if ($json == null) {
 }
 
 if (isset($saida_json->session)) {
-    $_SESSION = $saida_json->session;
+    if ($saida_json->session == "destroy") {
+        session_reset();
+        session_unset();
+    } else {
+        $_SESSION = (array) $saida_json->session;
+    }
     unset($saida_json->session);
 }
 
