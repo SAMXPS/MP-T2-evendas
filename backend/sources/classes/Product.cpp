@@ -19,6 +19,10 @@ std::string Product::getName() const {
     return this->name;
 }
 
+std::string Product::getDescription() const {
+    return this->category;
+}
+
 float Product::getPrice() const {
     return this->price;
 }
