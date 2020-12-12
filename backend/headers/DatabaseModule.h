@@ -1,5 +1,5 @@
-#ifndef _DATABASE_MODULE
-#define _DATABASE_MODULE
+#ifndef DATABASE_MODULE_H_INCLUDED
+#define DATABASE_MODULE_H_INCLUDED
 #include <mysql/mysql.h>
 #include <list>
 #include <map>
@@ -79,4 +79,4 @@ class DatabaseModule {
         DatabaseResult* executeQuery(const std::string&query);
 };
 
-#endif//_DATABASE_MODULE
+#endif//DATABASE_MODULE_H_INCLUDED

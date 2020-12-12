@@ -45,34 +45,37 @@ void DatabaseModule::throwLastError() {
 
 DatabaseResult* DatabaseModule::executeQuery(const std::string&query) {
      if (!this->connected)
-          this->connect();
+     if (!this->connect()) return nullptr;
 
      if (mysql_query(&this->connection, query.c_str())) {
           throwLastError();
      }
 
-     result = mysql_store_result(&this->connection);
-     int num_fields = mysql_num_fields(result);
-
-     MYSQL_FIELD *field;
-     std::string fields[num_fields];
-
-     for (int i = 0; field = mysql_fetch_field(result); i++) {
-          fields[i] = field->name;
-     }
-
-     MYSQL_ROW _row;
-
      DatabaseResult* resultado = new DatabaseResult();
+     result = mysql_store_result(&this->connection);
 
-     while ((_row = mysql_fetch_row(result))) {
-          DatabaseRow row;
-          for(int i = 0; i < num_fields; i++) {
-               row[fields[i]] = _row[i] ? _row[i] : "NULL";
+     if (result) {
+          int num_fields = mysql_num_fields(result);
+
+          MYSQL_FIELD *field;
+          std::string fields[num_fields];
+
+          for (int i = 0; field = mysql_fetch_field(result); i++) {
+               fields[i] = field->name;
           }
-          resultado->push_back(row);
+
+          MYSQL_ROW _row;
+
+          while ((_row = mysql_fetch_row(result))) {
+               DatabaseRow row;
+               for(int i = 0; i < num_fields; i++) {
+                    row[fields[i]] = _row[i] ? _row[i] : "NULL";
+               }
+               resultado->push_back(row);
+          }
+
+          mysql_free_result(result);
      }
 
-     mysql_free_result(result);
      return resultado;
 }
