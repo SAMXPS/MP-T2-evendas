@@ -70,6 +70,16 @@ class ProductManager {
          * @return std::list<std::string> 
          */
         static std::list<std::string> listCategory();
+        
+        /**
+         * @brief Retorna lista de produtos de uma categoria.
+         * 
+         * Retorna lista de produtos de uma categoria.
+         * 
+         * @param category 
+         * @return ProductList 
+         */
+        static std::list<Product> loadCategoryProducts(std::string category);
 
         private:
 };

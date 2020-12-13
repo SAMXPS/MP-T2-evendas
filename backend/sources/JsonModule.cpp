@@ -35,8 +35,10 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return JsonModule::loadUserProducts(request);
     } else if(action.compare("announceProduct") == 0) {  
         return JsonModule::announceProduct(request);
-    } else if(action.compare("searchClient") == 0) {  
-
+    } else if(action.compare("loadCategories") == 0) {  
+        return JsonModule::loadCategories(request);
+    } else if(action.compare("loadCategoryProducts") == 0) {  
+        return JsonModule::loadCategoryProducts(request);
     } else {
         response["status"] = "ERROR";
         response["error"] = "INVALID_ACTION";
@@ -185,7 +187,7 @@ Json::Value JsonModule::announceProduct(const Json::Value&request) {
         std::string description = request["data"]["description"].asString();
         float price = std::stof(request["data"]["price"].asString());
         std::string category = request["data"]["category"].asString();
-        std::string image = request["data"]["image"].asString();
+        std::string image = request["data"]["imagePath"].asString();
 
         response["success"] = ProductManager::addProduct(Product(
             -1, 
@@ -203,4 +205,39 @@ Json::Value JsonModule::announceProduct(const Json::Value&request) {
     response["status"] = "ERROR";
     response["error"] = "INVALID_SESSION";
     return response;
+}
+
+Json::Value JsonModule::loadCategories(const Json::Value&request) {
+    Json::Value response;
+    response["status"] = "OK";
+    Json::Value categories = Json::arrayValue;
+
+    auto list = ProductManager::listCategory();
+    for (auto category : list) {
+        categories.append(category);
+    }
+
+    response["categories"] = categories;
+
+    return response;
+}
+
+Json::Value JsonModule::loadCategoryProducts(const Json::Value&request) {
+    try {
+        Json::Value response;
+        response["status"] = "OK";
+
+        Json::Value list = Json::arrayValue;
+        for (auto product : ProductManager::loadCategoryProducts(request["data"]["category"].asString())) {
+            list.append(product.toJson());
+        } 
+
+        response["products"] = list;
+        return response;
+    } catch (...) {
+        Json::Value err;
+        err["status"] = "ERROR";
+        err["error"] = "unknown error";
+        return err;
+    }
 }

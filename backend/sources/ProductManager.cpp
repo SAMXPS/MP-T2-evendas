@@ -109,3 +109,38 @@ std::list<std::string> ProductManager::listCategory() {
         }
     return list;
 }
+
+std::list<Product> ProductManager::loadCategoryProducts(std::string category) {
+    std::list<Product> list;
+
+    DatabaseResult* result;
+    try {
+        result = DatabaseModule::getInstance()->executeQuery("SELECT * FROM `products` WHERE `CATEGORY` = '" + category + "'");
+    } catch (const DatabaseError&error) { }
+
+    // Verificando se o resultado existe
+    if (result)
+        for (auto item : *result) {
+            try {
+                int id = std::stoi(item["ID"]);
+                std::string name = item["NAME"];
+                std::string description  = item["DESCRIPTION"];
+                float price = std::stof(item["PRICE"]);
+                std::string category = item["CATEGORY"];
+                std::string imagePath = item["IMAGE"];
+                int sellerId = std::stoi(item["SELLER_ID"]);
+
+                list.push_back(Product(
+                    id, 
+                    name, 
+                    description, 
+                    price, 
+                    category, 
+                    imagePath, 
+                    sellerId
+                ));
+            }
+            catch(const DatabaseError&err) { }
+        }
+    return list;
+};
