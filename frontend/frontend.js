@@ -58,7 +58,7 @@ Evendas.verifySession = function() {
             Evendas.loggedUser = null;
             $("#unlogged_nav").show();
             $("#logged_nav").hide();
-            Evendas.loadPage("login.html");
+            Evendas.loadPage("products/categories.html");
         }
     });
 };

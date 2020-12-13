@@ -1,1 +1,33 @@
-Aqui serão mostradas as categorias.
+<script>
+    function __loadMyCategory(name) {
+        alert(name);
+    };
+
+    $(document).ready(function(){
+        Evendas.getBackend({action: "loadCategories"}, function(success, response){
+            if (success) {
+                categories = response.categories;
+                $("#categories").html("");
+                for (var i = 0; i < categories.length; i++) {
+                    var category = categories[i];
+                    $("#categories").append(`
+                    <li>
+                        <a class="waves-effect" onclick="__loadMyCategory('` + category + `')">
+                            ` + category + ` 
+                        </a>
+                    </li>
+                    `)
+                }
+            } else {
+                alert("Ocorreu um erro ao carregar as categorias.");
+            }
+        })
+    });
+</script>
+<div class="container">
+    <h5>Bem vindo ao Evendas</h5>
+    <h5>Categorias Disponíveis</h5>
+    <div id="categories">
+        Carregando...
+    </div>
+</div>
