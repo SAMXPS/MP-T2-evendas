@@ -10,7 +10,7 @@ Product* ProductManager::loadProduct(int productId) {
         if (result != nullptr && result->size() > 0) {
             auto element = result->front();
             return new Product(std::stoi(element["ID"]), element["NAME"], element["DESCRIPTION"], std::stof(element["PRICE"]), element["CATEGORY"],
-            element["IMAGE"], std::stoi(element["SELLE_ID"]));
+            element["IMAGE"], std::stoi(element["SELLER_ID"]));
         }
     }
     catch(const DatabaseError&err) { }
@@ -54,9 +54,10 @@ std::list<Product> ProductManager::loadUserProducts(int sellerId) {
 };
 
 bool ProductManager::addProduct(const Product&product) {
+    DatabaseResult* result;
     try {
         if (product.getId() == 0 || ProductManager::loadProduct(product.getId()) == NULL) {
-            DatabaseModule::getInstance()->executeQuery("INSERT INTO `products`(`ID`, `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `IMAGE`, `SELLER_ID`) VALUES ('" + std::to_string(product.getId()) + "','" + product.getName() + "', '" + product.getDescription() + "', '" + std::to_string(product.getPrice()) + "', '" + product.getCategory() + "', '" + product.getImagePath() + "', '" + std::to_string(product.getSellerId()) +"')");
+            result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `products`(`ID`, `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `IMAGE`, `SELLER_ID`) VALUES ('" + std::to_string(product.getId()) + "','" + product.getName() + "', '" + product.getDescription() + "', '" + std::to_string(product.getPrice()) + "', '" + product.getCategory() + "', '" + product.getImagePath() + "', '" + std::to_string(product.getSellerId()) +"')");
             return true;
         }
         else {
