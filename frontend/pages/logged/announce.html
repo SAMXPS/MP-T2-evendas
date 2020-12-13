@@ -13,39 +13,40 @@
     <h5>
         Anunciar Novo Produto
     </h5>
-    
-    <form class="col s12" id="announce-form">	
-        <div class="row">
-            <div class="input-field col s12 l6">
-                <input id="name" type="text" class="validate">
-                <label for="name" class="active">Nome do Produto</label>
+    <div class="row">
+        <form class="col s12 l8 right" id="announce-form">	
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <input id="name" type="text" class="validate">
+                    <label for="name">Nome do Produto</label>
+                </div>
+                <div class="input-field col s12 l6">
+                    <input id="price" type="number" min="0" class="validate">
+                    <label for="price">Preço (R$)</label>
+                </div>
             </div>
-            <div class="input-field col s12 l6">
-                <input id="price" type="number" min="0" class="validate">
-                <label for="price" class="active">Preço (R$)</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="category" type="text" class="validate">
+                    <label for="category">Categoria</label>
+                </div>
             </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="description" class="materialize-textarea"></textarea>
+                    <label for="description">Descrição</label>
+                </div>
+            </div>
+            <input id="action" type="hidden" value="announceProduct">
+            <input id="imagePath" type="hidden" value="null">
+        </form>
+        <div id="upload_image" class="col l4 s12 left">
+
         </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label for="description" class="active">Descrição</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 l6">
-                <input id="category" type="text" class="validate">
-                <label for="category" class="active">Categoria</label>
-            </div>
-            <div class="input-field col s12 l6">
-                <input id="image" type="text" class="validate">
-                <label for="image" class="active">Imagem</label>
-            </div>
-        </div>
-        <input id="action" type="hidden" value="announceProduct">
-        <div class="row">
-            <button class="btn right">Anunciar</button>
-        </div>
-    </form>
+    </div>
+    <div class="row">
+        <button class="btn right" id="sendbtnme">Anunciar</button>
+    </div>
 </div>
 
 <script>
@@ -71,6 +72,13 @@
                 alert("Produto anunciado com sucesso!");
                 Evendas.loadPage("logged/announce.html");
             });
+        });
+
+        Evendas.loadPage("upload_image.html", "#upload_image");
+
+        $("#sendbtnme").click(function() {
+            $("#imagePath").val($("#showme").attr("src"));
+            $("#announce-form").submit();
         });
     });
 </script>

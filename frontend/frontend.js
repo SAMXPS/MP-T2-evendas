@@ -1,10 +1,10 @@
 var Evendas = {};
 
-Evendas.loadPage = function(path) {
+Evendas.loadPage = function(path, where = "main") {
     if (path.startsWith("logged/") && Evendas.loggedUser == null) {
         alert("Para acessar essa funcionalidade, é preciso estar logado.");
-        Evendas.loadPage("login.html");
-    } else $("main").load("pages/" + path);
+        Evendas.loadPage("login.html", where);
+    } else $(where).load("pages/" + path);
 };
 
 Evendas.getBackend = function(data, callback){
