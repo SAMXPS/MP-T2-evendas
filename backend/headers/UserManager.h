@@ -16,6 +16,15 @@ class UserManager {
         static User* loadUser(const std::string&email); 
         
         /**
+         * @brief Carrega um usuario
+         * 
+         * Carrega os dados de um usuário.
+         * @return Ponteiro para usuário. Se o usuário não for encontrado, retorna ponteiro para nulo.
+         * 
+         */
+        static User* loadUser(int id);
+
+        /**
          * @brief Carrega dados adicionais de um usuario
          * 
          * @return Ponteiro para dados de usuário. Se o usuário não for encontrado, retorna ponteiro para nulo.

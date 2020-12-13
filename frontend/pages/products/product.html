@@ -1,0 +1,49 @@
+<div id="products_div" hidden>
+    <div class="product_box row">
+        <div class="col l4">
+            <img id="product_img" style="width: 100%;">
+        </div>
+        <div class="col l8">
+            <div class="row">
+                <h5 id="product_name"></h5>
+            </div>
+            <div class="row">
+                <h5>Preço:</h5> R$ <span id="product_price"></span>
+            </div>
+            <div class="row">
+                <h5>Descrição</h5>
+                <p id="product_description"></p>
+            </div>
+            <div class="row" id="seller_info">
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var product = Evendas.currentProduct;
+        Evendas.currentSeller = product.sellerId;
+        $("#product_img").attr("src", product.imagePath);
+        $("#product_price").text(parseFloat(product.price).toFixed(2).replace(".",","));
+        $("#product_name").text(product.name);
+        $("#product_description").text(product.description);
+        $("#products_div").show();
+        Evendas.loadPage("products/seller_info.html", "#seller_info");
+    });
+</script>
+
+<style>
+    .product_box {
+        background-color: rgba(0,0,0,0.01);
+        border-radius: 5px;
+        padding: 15px !important;
+        border-style: outset;
+        border-width: 5px;
+        font-family: Proxima Nova,-apple-system,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+    }
+    .product_box img {
+        border-radius: 10px;
+    }
+</style>

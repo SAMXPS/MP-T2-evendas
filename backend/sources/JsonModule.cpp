@@ -119,10 +119,26 @@ Json::Value JsonModule::getUserData(const Json::Value&request) {
 
     if (session_info["valid_session"].asBool()) {
         response["status"] = "OK";
-        int userId = std::stoi((request["data"]["id"] != Json::nullValue ? request["data"]["id"] : request["session"]["user"]["id"]).asString());
-        response["id"] = userId;
-        UserData* userData = UserManager::loadUserData(userId);
-        response["user_data"] = userData ? userData->toJson() : Json::nullValue;
+        try {
+            int userId = std::stoi((request["data"]["id"] != Json::nullValue ? request["data"]["id"] : request["session"]["user"]["id"]).asString());
+            response["id"] = userId;
+            User* user = UserManager::loadUser(userId);
+            UserData* userData = UserManager::loadUserData(userId);
+            if (userData) {
+                response["user_data"] = userData->toJson();
+            } 
+            if (user){
+                response["user"]["email"] = user->getEmail();
+                response["user"]["name"] = user->getName();
+            }
+        } catch (const Json::Exception&err) {
+            response["error"] = err.what();
+        } catch (const std::exception&err) {
+            response["error"] = err.what();
+        } catch (...) {
+            response["error"] = "Erro desconhecido.";
+        }
+        
         return response;
     }
 

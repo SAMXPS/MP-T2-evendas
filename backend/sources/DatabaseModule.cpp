@@ -23,6 +23,8 @@ DatabaseModule* DatabaseModule::getInstance() {
 
 bool DatabaseModule::connect() {
      mysql_init(&this->connection);
+     mysql_options(&this->connection, MYSQL_SET_CHARSET_NAME, "utf8"); 
+     mysql_options(&this->connection, MYSQL_INIT_COMMAND, "SET NAMES utf8"); 
 
      if (mysql_real_connect(&this->connection, "127.0.0.1", "evendas", "WgAC95xFZHcBdJPH", "evendas", 0, NULL, 0)) {
           this->connected = true;

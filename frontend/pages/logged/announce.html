@@ -50,6 +50,13 @@
 </div>
 
 <script>
+    function __removerAnuncion(id) {
+        Evendas.getBackend({action: "removeProduct", id: id}, function(success, response){
+            if (success) alert("Anuncio removido com sucesso.");
+            else alert("Erro ao remover anuncio");
+        });
+    }
+
     $(document).ready(function(){
         Evendas.getBackend({action: "loadUserProducts"}, function(success, response){
             if (!success) {
@@ -60,7 +67,7 @@
                     var product = response.products[i];
                     $("#product_list").append(
                         `<div class="row">
-                            Aqui está seu produto` + product.name + `
+                            Você está anunciando um(a) ` + product.name + `. <a href="#" onclick="__removerAnuncion(` + product.id + `)">remover anúncio</a>
                         </div>`
                     );
                 }

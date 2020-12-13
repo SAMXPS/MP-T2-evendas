@@ -1,6 +1,38 @@
 <script>
     function __loadMyCategory(name) {
-        alert(name);
+        $("#products_div").show();
+        Evendas.getBackend({action: "loadCategoryProducts", category: name}, function(success, response) {
+            if (!success) {
+                alet("Ocorreu um erro ao carregar produtos");
+            } else {
+                $("#products_div").html("<h5>Produtos</h5>");
+                var products = response.products;
+                for (var i = 0; i < products.length; i++) {
+                    var product = products[i];
+                    $("#products_div").append(`
+                        <div class="col l4" style="padding: 10px;">
+                            <div class="product_box" product_id="` + product.id + `">
+                                <div class="row center">
+                                    <img src="` + product.imagePath + `" style="width: 90%; max-height: 300px;">
+                                </div>
+                                <h5 class="center">
+                                    R$ ` + parseFloat(product.price).toFixed(2).replace(".",",") + `
+                                </h5>
+                                <h6 class="center"><strong>
+                                    ` + product.name + `</strong>
+                                </h6>
+                                <span class="json" hidden>` + JSON.stringify(product) + `</span>
+                            </div>
+                        </div>
+                    `);
+                }
+                $(".product_box").click(function(){
+                    json = $(this).find(".json").text();
+                    Evendas.currentProduct = JSON.parse(json);
+                    Evendas.loadPage("products/product.html");
+                });
+            }
+        });
     };
 
     $(document).ready(function(){
@@ -21,7 +53,7 @@
             } else {
                 alert("Ocorreu um erro ao carregar as categorias.");
             }
-        })
+        });
     });
 </script>
 <div class="container">
@@ -30,4 +62,26 @@
     <div id="categories">
         Carregando...
     </div>
+    <div id="products_div" class="row" hidden>
+        Carregando...
+    </div>
+
+    <style>
+        .product_box {
+            background-color: rgba(0,0,0,0.01);
+            border-radius: 5px;
+            padding: 15px !important;
+            border-style: outset;
+            border-width: 5px;
+            font-family: Proxima Nova,-apple-system,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+            transition: transform .2s; /* Animation */
+        }
+        .product_box img {
+            border-radius: 10px;
+        }
+        .product_box:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+    </style>
 </div>

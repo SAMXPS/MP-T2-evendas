@@ -1,0 +1,28 @@
+<script>
+    $(document).ready(function(){
+        var seller = Evendas.currentSeller;
+        Evendas.getBackend({action: "getUserData", id: seller}, function(success, response) {
+            if (success) {
+                var user_data = response.user_data;
+                var user = response.user;
+                $("#seller_info_inside").html(
+                    "Nome: " + user.name + "<br>" +
+                    "Email: " + user.email + "<br>" +
+                    "Telefone: " + user_data.phoneNumber + "<br>" +
+                    "Endereço: " + user_data.address + "<br>"
+                );
+            } else {
+                $("#seller_info_inside").html("Para ver informações do vendedor, você precisa <a href='#' onclick='Evendas.loadPage(\"login.html\");'>fazer login</a>!");
+            }
+        });
+    });
+</script>
+<h5>Informações do Vendedor</h5>
+<div id="seller_info_inside">
+    Carregando..
+</div>
+
+<h5>Como comprar?</h5>
+<div>
+    Entre em contato com o Vendedor.
+</div>

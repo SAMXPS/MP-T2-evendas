@@ -17,6 +17,21 @@ User* UserManager::loadUser(const std::string&email) {
     return nullptr;
 }
 
+User* UserManager::loadUser(int id) {
+    DatabaseResult* result;
+
+    try {
+        result = DatabaseModule::getInstance()->executeQuery("SELECT * FROM `users` WHERE `ID` = '" + std::to_string(id) + "'");
+
+        if (result != nullptr && result->size() > 0) {
+            auto element = result->front();
+            return new User(std::stoi(element["ID"]), element["NAME"], element["EMAIL"], element["PASSWORD"]);
+        }
+    } catch (const DatabaseError&err) { }
+    
+    return nullptr;
+}
+
 UserData* UserManager::loadUserData(int id) {
     DatabaseResult* result;
 
