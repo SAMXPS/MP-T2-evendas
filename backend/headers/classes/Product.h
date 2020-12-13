@@ -28,6 +28,12 @@ class Product {
         std::string getDescription() const;
         std::string getImagePath() const;
         int getSellerId() const;
+        
+        void setName(std::string name);
+        void setPrice(float price);
+        void setCategory(std::string category);
+        void setDescription(std::string description);
+        void setImagePath(std::string imagePath);
 
         Json::Value toJson();
 };

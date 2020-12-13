@@ -20,7 +20,7 @@ std::string Product::getName() const {
 }
 
 std::string Product::getDescription() const {
-    return this->category;
+    return this->description;
 }
 
 float Product::getPrice() const {
@@ -36,6 +36,26 @@ std::string Product::getImagePath() const {
 
 int Product::getSellerId() const {
     return this->sellerId;
+}
+
+void Product::setName(std::string name) {
+    this->name = name;
+}
+
+void Product::setPrice(float price) {
+    this->price = price;
+}
+
+void Product::setCategory(std::string category) {
+    this->category = category;
+}
+
+void Product::setDescription(std::string description) {
+    this->description = description;
+}
+
+void Product::setImagePath(std::string imagePath) {
+    this->imagePath = imagePath;
 }
 
 Json::Value Product::toJson() {

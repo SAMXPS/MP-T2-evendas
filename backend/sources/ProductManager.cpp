@@ -84,7 +84,7 @@ bool ProductManager::updateProduct(const Product&product) {
         std::string newImage = product.getImagePath();
         std::string newSellerId = std::to_string(product.getSellerId());
 
-        DatabaseModule::getInstance()->executeQuery("UPDATE `products` `NAME`='" + newName + "', `DESCRIPTION`='" + newDiscription + "',`PRICE`='" + newPrice + "',`CATEGORY`='" + newCategory + "', `IMAGE`='" + newImage + "', `SELLER_ID`='" + newSellerId + "' WHERE `ID`= '" + _id + "'");
+        DatabaseModule::getInstance()->executeQuery("UPDATE `products` SET `NAME`='" + newName + "', `DESCRIPTION`='" + newDiscription + "',`PRICE`='" + newPrice + "',`CATEGORY`='" + newCategory + "', `IMAGE`='" + newImage + "', `SELLER_ID`='" + newSellerId + "' WHERE `ID`= '" + _id + "'");
 
         return true;
     }
