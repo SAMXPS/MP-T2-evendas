@@ -20,7 +20,7 @@ Evendas.getBackend = function(data, callback){
 
 Evendas.parseFormData = function(form_id){
     data = {};
-    $(form_id).find('input').each(function(obj){
+    $(form_id).find(':input').each(function(obj){
         data[$(this).attr('id')] = $(this).val();
     });
     return data;

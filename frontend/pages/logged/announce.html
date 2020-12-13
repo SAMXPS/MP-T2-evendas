@@ -1,1 +1,76 @@
-Aqui será possível anunciar um produto.
+<div class="container">
+    <h5>
+        Meus produtos
+    </h5>
+    <div class="row">
+        Você tem <span id="product_count">0</span> produto(s) anunciados.
+    </div>
+    <div class="row" id="product_list">
+
+    </div>
+</div>
+<div class="container">
+    <h5>
+        Anunciar Novo Produto
+    </h5>
+    
+    <form class="col s12" id="announce-form">	
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <input id="name" type="text" class="validate">
+                <label for="name" class="active">Nome do Produto</label>
+            </div>
+            <div class="input-field col s12 l6">
+                <input id="price" type="number" min="0" class="validate">
+                <label for="price" class="active">Preço (R$)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="description" class="materialize-textarea"></textarea>
+                <label for="description" class="active">Descrição</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <input id="category" type="text" class="validate">
+                <label for="category" class="active">Categoria</label>
+            </div>
+            <div class="input-field col s12 l6">
+                <input id="image" type="text" class="validate">
+                <label for="image" class="active">Imagem</label>
+            </div>
+        </div>
+        <input id="action" type="hidden" value="announceProduct">
+        <div class="row">
+            <button class="btn right">Anunciar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function(){
+        Evendas.getBackend({action: "loadUserProducts"}, function(success, response){
+            if (!success) {
+                alert("Erro ao carregar seus produtos");
+            } else {
+                $("#product_count").text(response.products.length);
+                for(var i = 0; i < response.products.length; i++){
+                    var product = response.products[i];
+                    $("#product_list").append(
+                        `<div class="row">
+                            Aqui está seu produto` + product.name + `
+                        </div>`
+                    );
+                }
+            }
+        });
+        
+        Evendas.prepareForm("#announce-form", function(success, data) {
+            Evendas.loadUserData(function(userData) {
+                alert("Produto anunciado com sucesso!");
+                Evendas.loadPage("logged/announce.html");
+            });
+        });
+    });
+</script>

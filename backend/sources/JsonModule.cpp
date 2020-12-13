@@ -1,6 +1,7 @@
 #include "../headers/JsonModule.h"
 #include "../headers/DatabaseModule.h"
 #include "../headers/UserManager.h"
+#include "../headers/ProductManager.h"
 
 Json::Value JsonModule::BackendInterface(std::istream&input) {  
     Json::Value request;
@@ -30,10 +31,10 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return JsonModule::getUserData(request);
     } else if(action.compare("updateUserData") == 0) {  
         return JsonModule::updateUserData(request);
-    } else if(action.compare("ListItem") == 0) {  
-
-    } else if(action.compare("searchSeller") == 0) {  
-
+    } else if(action.compare("loadUserProducts") == 0) {  
+        return JsonModule::loadUserProducts(request);
+    } else if(action.compare("announceProduct") == 0) {  
+        return JsonModule::announceProduct(request);
     } else if(action.compare("searchClient") == 0) {  
 
     } else {
@@ -142,6 +143,60 @@ Json::Value JsonModule::updateUserData(const Json::Value&request) {
         UserData data(id, address, document, phone_number);
         UserManager::saveUserData(data);
         response["data"] = data.toJson();
+        return response;
+    }
+
+    response["status"] = "ERROR";
+    response["error"] = "INVALID_SESSION";
+    return response;
+}
+
+
+Json::Value JsonModule::loadUserProducts(const Json::Value&request){
+    Json::Value response;
+    Json::Value session_info = verifySession(request);
+
+    if (session_info["valid_session"].asBool()) {
+        response["status"] = "OK";
+        int userId = std::stoi((request["data"]["id"] != Json::nullValue ? request["data"]["id"] : request["session"]["user"]["id"]).asString());
+        response["id"] = userId;
+        Json::Value list = Json::arrayValue;
+        for (auto product : ProductManager::loadUserProducts(userId)) {
+            list.append(product.toJson());
+        } 
+        response["products"] = list;
+        return response;
+    }
+
+    response["status"] = "ERROR";
+    response["error"] = "INVALID_SESSION";
+    return response;
+}
+
+Json::Value JsonModule::announceProduct(const Json::Value&request) {
+    Json::Value response;
+    Json::Value session_info = verifySession(request);
+
+    if (session_info["valid_session"].asBool()) {
+        response["status"] = "OK";
+
+        int userId = std::stoi(request["session"]["user"]["id"].asString());
+        std::string name = request["data"]["name"].asString();
+        std::string description = request["data"]["description"].asString();
+        float price = std::stof(request["data"]["price"].asString());
+        std::string category = request["data"]["category"].asString();
+        std::string image = request["data"]["image"].asString();
+
+        response["success"] = ProductManager::addProduct(Product(
+            -1, 
+            name, 
+            description, 
+            price, 
+            category, 
+            image, 
+            userId
+        ));
+
         return response;
     }
 
