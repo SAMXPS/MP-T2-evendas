@@ -56,39 +56,35 @@ std::list<Product> ProductManager::loadUserProducts(int sellerId) {
 bool ProductManager::addProduct(const Product&product) {
     DatabaseResult* result;
     try {
-        if (product.getId() == 0 || ProductManager::loadProduct(product.getId()) == NULL) {
-            result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `products`(`ID`, `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `IMAGE`, `SELLER_ID`) VALUES ('" + std::to_string(product.getId()) + "','" + product.getName() + "', '" + product.getDescription() + "', '" + std::to_string(product.getPrice()) + "', '" + product.getCategory() + "', '" + product.getImagePath() + "', '" + std::to_string(product.getSellerId()) +"')");
-            return true;
-        }
-        else {
-            return false;
-        }  
+        result = DatabaseModule::getInstance()->executeQuery("INSERT INTO `products`(`ID`, `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `IMAGE`, `SELLER_ID`) VALUES (NULL,'" + product.getName() + "', '" + product.getDescription() + "', '" + std::to_string(product.getPrice()) + "', '" + product.getCategory() + "', '" + product.getImagePath() + "', '" + std::to_string(product.getSellerId()) +"')");
+        return true;
     } catch (const DatabaseError&err) { }
     return false;
 }
 
 bool ProductManager::removeProduct(int productId) {
     try {
-        std::string _id = std::to_string(productId);
-        DatabaseModule::getInstance()->executeQuery("DELETE FROM `products` WHERE `ID` = '" + _id + "'");
-        return true;
+        if (loadProduct(productId) != NULL) {
+            std::string _id = std::to_string(productId);
+            DatabaseModule::getInstance()->executeQuery("DELETE FROM `products` WHERE `ID` = '" + _id + "'");
+            return true;
+        } 
     } catch (const DatabaseError&err) { }
 
     return false;
 };
 
-bool ProductManager::updateProduct(int productId, const Product&newProduct) {
+bool ProductManager::updateProduct(const Product&product) {
     try {
-        std::string _id = std::to_string(productId);
-        std::string newId = std::to_string(newProduct.getId());
-        std::string newName = newProduct.getName();
-        std::string newDiscription = newProduct.getDescription();
-        std::string newPrice = std::to_string(newProduct.getPrice());
-        std::string newCategory = newProduct.getCategory();
-        std::string newImage = newProduct.getImagePath();
-        std::string newSellerId = std::to_string(newProduct.getSellerId());
+        std::string _id = std::to_string(product.getId());
+        std::string newName = product.getName();
+        std::string newDiscription = product.getDescription();
+        std::string newPrice = std::to_string(product.getPrice());
+        std::string newCategory = product.getCategory();
+        std::string newImage = product.getImagePath();
+        std::string newSellerId = std::to_string(product.getSellerId());
 
-        DatabaseModule::getInstance()->executeQuery("UPDATE `products` SET `ID`='" + newId + "',`NAME`='" + newName + "', `DESCRIPTION`='" + newDiscription + "',`PRICE`='" + newPrice + "',`CATEGORY`='" + newCategory + "', `IMAGE`='" + newImage + "', `SELLER_ID`='" + newSellerId + "' WHERE `ID`= '" + _id + "'");
+        DatabaseModule::getInstance()->executeQuery("UPDATE `products` `NAME`='" + newName + "', `DESCRIPTION`='" + newDiscription + "',`PRICE`='" + newPrice + "',`CATEGORY`='" + newCategory + "', `IMAGE`='" + newImage + "', `SELLER_ID`='" + newSellerId + "' WHERE `ID`= '" + _id + "'");
 
         return true;
     }

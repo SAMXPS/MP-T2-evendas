@@ -60,7 +60,7 @@ class ProductManager {
          * @return true 
          * @return false 
          */
-        static bool updateProduct(int productId, const Product&product);
+        static bool updateProduct(const Product&product);
 
         /**
          * @brief Lista as categorias de produtos

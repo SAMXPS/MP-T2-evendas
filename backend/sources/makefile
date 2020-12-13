@@ -10,7 +10,7 @@ LDIR :=../lib		# Diretório de libs.
 LIBS=-lm $(shell mysql_config --libs)
 
 # Arquivos de codigo fonte comuns.
-COMMON_SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp $(wildcard classes/*.cpp)
+COMMON_SRC_FILES := JsonModule.cpp DatabaseModule.cpp UserManager.cpp ProductManager.cpp $(wildcard classes/*.cpp)
 
 # Arquivos de código fonte exclusivos do deploy do backend.
 BACKEND_SRC_FILES := $(COMMON_SRC_FILES) Backend.cpp
