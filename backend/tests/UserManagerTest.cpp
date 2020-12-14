@@ -7,7 +7,9 @@ TEST_F(UserManagerTest, registerUser) {
 }
 
 TEST_F(UserManagerTest, loadUser) {
-    User* user = UserManager::loadUser(test_email);
+    User* user = UserManager::loadUser(wrong_test_email);
+    GTEST_ASSERT_EQ(nullptr, user);
+    user = UserManager::loadUser(test_email);
     GTEST_ASSERT_NE(nullptr, user);
     GTEST_ASSERT_EQ(test_name, user->getName());
     GTEST_ASSERT_EQ(test_email, user->getEmail());
@@ -23,7 +25,6 @@ TEST_F(UserManagerTest, verifyLogin) {
 TEST_F(UserManagerTest, createUserData) {
     User* user = UserManager::loadUser(test_email);
     GTEST_ASSERT_NE(nullptr, user);
-
     UserData data(user->getId(), "Rua Teste, Bairro Teste0", "123.123.123-12", "+55 61 9 9999-9999");
     GTEST_ASSERT_EQ(true, UserManager::saveUserData(data));
 
