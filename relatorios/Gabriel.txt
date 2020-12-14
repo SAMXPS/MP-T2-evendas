@@ -1,0 +1,9 @@
+09/11 | 2h00 | especificar os módulos | foi especificado como o software seria dividido em seus módulos, linguagem de programação para o frontend e o backend
+09/11 | 2h00 | estudar aulas e laboratórios relacionados | aula 4/11
+18/11 | 2h00 | especificar as funções | primeira reunião especificações
+23/11 | 1h00 | estudar aulas e laboratórios relacionados | videoaulas de conexão de banco de dados com programa c++
+23/11 | 1h30 | revisar especificações | reunião para correção das especificações
+25/11 | 2h00 | estudar aulas e laboratórios relacionados | estudos de conexão de banco de dados com programa c++
+25/11 | 1h00 | codificar o módulo | tentativa de correção do databasemodule responsável pela comunicação entre o c++ e o banco de dados
+02/12 | 1h00 | estudar aulas e laboratórios relacionados | estudos de makefile
+02/12 | 1h30 | revisar código do módulo | tentativa de correção do módulo databasemodule responsável pela conexão c++ e banco de dados
