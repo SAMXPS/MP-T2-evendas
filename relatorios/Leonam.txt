@@ -1,0 +1,11 @@
+22/11/2020 | 4:00 h | estudo | Pesquisa sobre formas de geração de formatos json utilizando c++.
+22/11/2020 | 1:30 h | gerenciamento | Distribuição das tarefas utilizando no formato Kanban utilizando o trello.
+23/11/2020 | 1:30 h | codificação | Auxilio na contrução do makefile.
+23/11/2020 | 2:00 h | codificação | Inicio de construção do JsonModule que faz a comunicação do frontend com o backend utilizando Json.
+24/11/2020 | 2:00 h | codificação | Auxilio na criação da tabela de usuários no banco de dados.
+11/12/2020 | 1:00 h | codificação | Criação do método User* loadUser(int id) no  UserManager().
+11/12/2020 | 0:30 h | gerenciamento | Distribuição das tarefas do ultimo sprint utilizando utilizando o trello.
+11/12/2020 | 1:00 h | codificação | Criação da classe Product.
+12/12/2020 | 0:20 h | codificação | Remover parametro senha do metodo UserManager::removeUser().
+12/12/2020 | 5:00 h | codificação | Criação da classe gerenciadora de produtos ProductManager().
+12/12/2020 | 3:00 h | codificação | Criação de testes para alguns metodos da classe ProductManager()

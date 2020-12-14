@@ -1,0 +1,65 @@
+Tarefas executadas por Samuel James.
+Extraídas do log do projeto git.
+OBS: O tempo investido mostrado é uma aproximação.
+
+20/11/2020 Commit inicial - Estrutura básica do projeto
+20/11/2020 Hello World do frontend
+20/11/2020 Pesquisa de como fazer um site utilizando C++
+20/11/2020 Codificando interface entre WEB/PHP e C++ utilizando JSON
+# Tempo investido 20/11/2020: ~4h
+
+23/11/2020 Reorganizando permissoes do diretório
+23/11/2020 Atualizando vários arquivos
+# Tempo investido 23/11/2020: ~1h
+
+25/11/2020 Reorganizando backend
+25/11/2020 Renomeando algumas funções do JsonModule
+25/11/2020 Criando páginas de login e de registro
+25/11/2020 Updates no frontend
+25/11/2020 Atualizando makefile para incluir bibliotecas do mysql
+# Tempo investido 25/11/2020: ~4h
+
+08/12/2020 Codificando DatabaseModule
+# Tempo investido 08/12/2020: ~2h
+
+09/12/2020 Projetando estrutura do Frontend
+# Tempo investido 09/12/2020: ~2h
+
+10/12/2020 Extraindo funções javascript e adicionando-as ao frontend.js
+10/12/2020 Documentando módulo de banco de dados
+10/12/2020 Organizando testes
+10/12/2020 Renomeando pasta de sources
+10/12/2020 Adicionando scripts para automatizar testes e deploy do backend
+10/12/2020 Otimizando caminho dos comandos JSON usando streams
+# Tempo investido 10/12/2020: ~6h
+
+11/12/2020 Atualizando testes
+# Tempo investido 10/12/2020: ~2h
+
+12/12/2020 Corrigindo uso de ponteiro nulo no DatabaseModule
+12/12/2020 Simplificando UserManager
+12/12/2020 Atualizações diversas no backend
+12/12/2020 Streams devem ser passadas por referência
+12/12/2020 Adicionando UserData e testes
+12/12/2020 Aatualizando frontend
+12/12/2020 Atualizando JsonModule
+12/12/2020 Adicionando testes para JsonModule
+12/12/2020 Adicionando API para dados de usuário
+12/12/2020 Adicionando atualização de dados de usuário
+# Tempo investido 12/12/2020: ~12h
+
+13/12/2020 APIs para anunciar produto
+13/12/2020 orrigindo gerenciador de produtos
+13/12/2020 Adicionando sistema de carregamento de produtos por categoria (backend)
+13/12/2020 Adicionando sistema de envio de imagens
+13/12/2020 Adicionando página de listagem de categorias
+13/12/2020 Adicionando páginas de anúncio
+# Tempo investido 13/12/2020: ~6h
+
+14/12/2020 Rodando cpplint
+14/12/2020 alguns ajustes finais
+14/12/2020 Adicionando doxygen
+14/12/2020 Adicionando estrutura do banco de dados
+14/12/2020 Completando script de testes
+14/12/2020 Alguns ajustes finais no projeto
+# Tempo investido 13/12/2020: ~4h
