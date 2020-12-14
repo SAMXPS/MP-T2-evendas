@@ -17,6 +17,7 @@ class JsonModule {
         static Json::Value updateUserData(const Json::Value&request);
         static Json::Value loadUserProducts(const Json::Value&request);
         static Json::Value announceProduct(const Json::Value&request);
+        static Json::Value deleteProduct(const Json::Value&request);
         static Json::Value loadCategories(const Json::Value&request);
         static Json::Value loadCategoryProducts(const Json::Value&request);
        

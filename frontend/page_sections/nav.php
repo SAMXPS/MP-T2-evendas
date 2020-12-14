@@ -11,7 +11,7 @@
             <div id="logged_nav" hidden>
                 <li><div class="divider"></div></li>
                 <li><a class="subheader" id="logged_nav_name"></a></li>
-                <li><a class="waves-effect sidenav-link" action="logged/dashboard.html">Dashborad</a></li>
+                <li><a class="waves-effect sidenav-link" action="logged/dashboard.html">Dashboard</a></li>
                 <li><a class="waves-effect sidenav-link" action="logged/profile.html">Perfil</a></li>
                 <li><a class="waves-effect sidenav-link" action="logged/announce.html">Anunciar</a></li>
                 <li><a class="waves-effect sidenav-link" action="logout.html">Sair</a></li>

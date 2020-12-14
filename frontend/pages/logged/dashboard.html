@@ -1,3 +1,17 @@
 <div class="container">
     <h5>Bem vindo ao Evendas</h5>
+    
+    <li><a class="waves-effect my-link" action="logged/profile.html">Configurar Perfil</a></li>
+    <li><a class="waves-effect my-link" action="logged/announce.html">Anunciar Produto</a></li>
+    <li><a class="waves-effect my-link" action="products/categories.html">Comprar Produtos</a></li>
+    <li><a class="waves-effect my-link" action="logout.html">Sair</a></li>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(".my-link").click(function(e) {
+            e.preventDefault();
+            Evendas.loadPage($(this).attr("action"));
+        });
+    });
+</script>

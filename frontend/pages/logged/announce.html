@@ -51,18 +51,22 @@
 
 <script>
     function __removerAnuncion(id) {
-        Evendas.getBackend({action: "removeProduct", id: id}, function(success, response){
-            if (success) alert("Anuncio removido com sucesso.");
+        Evendas.getBackend({action: "deleteProduct", id: id}, function(success, response){
+            if (success) {
+                alert("Anuncio removido com sucesso.");
+                __loadProducts();
+            }
             else alert("Erro ao remover anuncio");
         });
     }
 
-    $(document).ready(function(){
+    function __loadProducts() {
         Evendas.getBackend({action: "loadUserProducts"}, function(success, response){
             if (!success) {
                 alert("Erro ao carregar seus produtos");
             } else {
                 $("#product_count").text(response.products.length);
+                $("#product_list").html("");
                 for(var i = 0; i < response.products.length; i++){
                     var product = response.products[i];
                     $("#product_list").append(
@@ -73,6 +77,10 @@
                 }
             }
         });
+    }
+
+    $(document).ready(function(){
+        __loadProducts();
         
         Evendas.prepareForm("#announce-form", function(success, data) {
             Evendas.loadUserData(function(userData) {

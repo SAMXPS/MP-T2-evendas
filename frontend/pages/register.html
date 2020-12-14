@@ -31,7 +31,12 @@
 <script>
     $(document).ready(function(){
         Evendas.prepareForm("#register-form", function(success, data) {
-            console.log(data);
+            if (success) {
+                alert("Cadastro realizado com sucesso! Faça login para entrar no sistema.");
+                Evendas.loadPage("login.html");
+            } else {
+                alert("Erro ao realizar cadastro. Tente utilizar outro email.");
+            }
         });
     });
 </script>

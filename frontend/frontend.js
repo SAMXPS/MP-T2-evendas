@@ -39,6 +39,8 @@ Evendas.loadUserData = function(callback) {
         if (success) {
             Evendas.userData = response.user_data;
             callback(response.userData);
+        } else {
+            console.log(response);
         }
     });
 } 

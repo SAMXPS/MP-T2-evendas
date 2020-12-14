@@ -41,6 +41,8 @@ Json::Value JsonModule::BackendInterface(std::istream&input) {
         return JsonModule::loadCategories(request);
     } else if (action.compare("loadCategoryProducts") == 0) {
         return JsonModule::loadCategoryProducts(request);
+    } else if (action.compare("deleteProduct") == 0) {
+        return JsonModule::deleteProduct(request);
     } else {
         response["status"] = "ERROR";
         response["error"] = "INVALID_ACTION";
@@ -97,7 +99,7 @@ Json::Value JsonModule::registerUser(const Json::Value&request) {
         request["data"]["name"].asString(),
         request["data"]["password"].asString());
 
-    response["data"] = success ? "SUCCESS" : "FAIL";
+    response["status"] = success ? "OK" : "FAIL";
     return response;
 }
 
@@ -277,4 +279,22 @@ Json::Value JsonModule::loadCategoryProducts(const Json::Value&request) {
         err["error"] = "unknown error";
         return err;
     }
+}
+
+Json::Value JsonModule::deleteProduct(const Json::Value&request) {
+    Json::Value response;
+    Json::Value session_info = verifySession(request);
+
+    if (session_info["valid_session"].asBool()) {
+        response["status"] = "OK";
+        // Vulnerabilidade que qualquer cliente logado pode excluir produto dos outros
+        // TODO: talvez resolver no futuro.
+        int productId = std::stoi(request["data"]["id"].asString());
+        ProductManager::removeProduct(productId);
+        return response;
+    }
+
+    response["status"] = "ERROR";
+    response["error"] = "INVALID_SESSION";
+    return response;
 }
