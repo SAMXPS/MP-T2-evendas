@@ -1,18 +1,13 @@
+// Copyright 2020 Samuel James, Leonam Gomes
 #include "../headers/DatabaseModule.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <iostream>
-
-using namespace std;
 
 DatabaseModule* DatabaseModule::instance = nullptr;
 
-DatabaseModule::~DatabaseModule(){
+DatabaseModule::~DatabaseModule() {
      try {
           disconnect();
-     } catch(...) {
-
-     }
+     } catch(...) { }
 }
 
 DatabaseModule* DatabaseModule::getInstance() {
@@ -23,10 +18,11 @@ DatabaseModule* DatabaseModule::getInstance() {
 
 bool DatabaseModule::connect() {
      mysql_init(&this->connection);
-     mysql_options(&this->connection, MYSQL_SET_CHARSET_NAME, "utf8"); 
-     mysql_options(&this->connection, MYSQL_INIT_COMMAND, "SET NAMES utf8"); 
+     mysql_options(&this->connection, MYSQL_SET_CHARSET_NAME, "utf8");
+     mysql_options(&this->connection, MYSQL_INIT_COMMAND, "SET NAMES utf8");
 
-     if (mysql_real_connect(&this->connection, "127.0.0.1", "evendas", "WgAC95xFZHcBdJPH", "evendas", 0, NULL, 0)) {
+     if (mysql_real_connect(&this->connection, "127.0.0.1", "evendas",
+          "WgAC95xFZHcBdJPH", "evendas", 0, NULL, 0)) {
           this->connected = true;
           return true;
      } else {
@@ -42,7 +38,9 @@ bool DatabaseModule::disconnect() {
 }
 
 void DatabaseModule::throwLastError() {
-     throw DatabaseError("Erro " + std::to_string(mysql_errno(&this->connection)) + ": " + mysql_error(&this->connection));
+     throw DatabaseError(
+          "Erro " + std::to_string(mysql_errno(&this->connection))
+          + ": " + mysql_error(&this->connection));
 }
 
 DatabaseResult* DatabaseModule::executeQuery(const std::string&query) {
@@ -70,7 +68,7 @@ DatabaseResult* DatabaseModule::executeQuery(const std::string&query) {
 
           while ((_row = mysql_fetch_row(result))) {
                DatabaseRow row;
-               for(int i = 0; i < num_fields; i++) {
+               for (int i = 0; i < num_fields; i++) {
                     row[fields[i]] = _row[i] ? _row[i] : "NULL";
                }
                resultado->push_back(row);

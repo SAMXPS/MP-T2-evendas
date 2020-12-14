@@ -1,6 +1,7 @@
+// Copyright 2020 Samuel James, Leonam Gomes
+#include <iostream>
 #include "../headers/Backend.h"
 #include "../headers/JsonModule.h"
-#include <iostream>
 
 int main() {
     Backend* backend = new Backend();

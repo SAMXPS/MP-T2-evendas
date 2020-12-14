@@ -1,3 +1,4 @@
+// Copyright 2020 Samuel James, Leonam Gomes
 #include "../../headers/classes/User.h"
 
 User::User(int id, const std::string&name,const std::string&email,const std::string&password) {

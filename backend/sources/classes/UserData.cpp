@@ -1,3 +1,4 @@
+// Copyright 2020 Samuel James, Leonam Gomes
 #include "../../headers/classes/UserData.h"
 
 UserData::UserData(int id, const std::string&address,const std::string&document,const std::string&phoneNumber) {

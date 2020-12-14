@@ -1,3 +1,4 @@
+// Copyright 2020 Samuel James, Leonam Gomes
 #include "../../headers/classes/Product.h"
 
 Product::Product(int id, const std::string&name, const std::string&description, float price, const std::string&category,
